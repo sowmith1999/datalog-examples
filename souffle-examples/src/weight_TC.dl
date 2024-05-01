@@ -1,0 +1,26 @@
+.decl edge(x: number, y: number, weight: number)
+.input edge
+
+.decl path(x: number, y: number)
+.output path
+
+; (edge src dst weight)
+(edge 1 2 1)
+(edge 2 3 2)
+(edge 2 4 1)
+(edge 3 5 2)
+(edge 4 5 1)
+(edge 5 6 2)
+
+; (path dst-node weight)
+; we will pick 1 as the src node, and set the weight to itself as 0
+(path 1 0)
+
+; this rules the distance from 1 to each node
+[(path x costx) (edge x y weightxy) (newd {+ costx weightxy}) (< newd (path y _))
+  --> (path y newd)]
+
+; Have to filter and get the minimum weight nodes
+;[(min-path (path x _) {minimum path x})]
+[(path n d) --> (min-path n {minimum path n _})]
+

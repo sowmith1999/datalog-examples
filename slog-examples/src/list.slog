@@ -1,0 +1,40 @@
+;; Source from Sun Yihao
+;  list operation
+(input-list (list 1 (list 2 (list 3 (nil)))))
+; (input-list (list 4 (list 5 (list 6 (list 7 (nil))))))
+
+
+;; length
+[(length !(do-length {input-list}) res) 
+    --> (print-length-res res)]
+
+[(do-length (list hd rst)) (length !(do-length rst) len-rst) 
+    --> (length (do-length (list hd rst)) {+ len-rst 1})]
+
+[(do-length (nil)) 
+    --> (length (do-length (nil)) 0)]
+
+;; append 
+(append ?(do-append (nil) x) (list x (nil)))
+[(append ?(do-append (list hd tail) x) (list hd tail-appended)) 
+    <-- (append !(do-append tail x) tail-appended)]
+
+[(print-append-res list) <-- (append !(do-append {input-list} 4) list)]
+
+
+;; member
+(member ?(do-member x (nil)) (false))
+(member ?(do-member x (list x rst)) (true))
+[(member ?(do-member x (list hd rst)) (true)) 
+    <-- (=/= hd x) (member !(do-member x rst) (true))]
+[(member ?(do-member x (list hd rst)) (false)) 
+    <-- (=/= hd x) (member !(do-member x rst) (false))]
+[(print-member-res res) <--
+	(member !(do-member 2 {input-list}) res)]
+
+;; reverse
+(reverse (do-reverse (nil)) (nil))
+[(reverse ?(do-reverse (list hd tail)) {append !(do-append r hd)}) 
+    <-- (reverse !(do-reverse tail) r)]
+[(print-reverse-res list) 
+    <-- (reverse !(do-reverse {input-list}) list)]

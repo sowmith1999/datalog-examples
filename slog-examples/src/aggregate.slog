@@ -1,0 +1,31 @@
+;; Count
+(edge 1 2) (edge 1 4) (edge 2 3) (edge 2 4) (edge 2 5) (edge 2 6) (edge 3 3) (edge 3 4) (edge 5 3)
+;; Add the all the nodes with outgoing edges to node relation
+[(edge x y) --> (node x)]
+;; For each node, count the number of edges outgoing from it and accumulate in degree
+[(node x) (count edge x _ degree) --> (node-degree x degree)]
+;; below rule, does the same above two rules combined
+;; matches on outgoing node in edge and uses that in count to get degree
+[(edge x _) (count edge x _ degree) --> (node-degree-edge x degree)]
+;; Another example of using count, this rules just counts the number of edges in edge relation
+[(count edge _ _ degree) --> (edge-count degree)]
+
+;; sum
+(b-foo 1 1) (b-foo 1 2) (b-foo 1 3)
+(b-foo 2 3)
+
+;; I am not sure  how the {} syntax works for aggregators, just sticking to () syntax
+;; (b-foo-sum {sum b-foo})
+
+[(sum b-foo _ S) --> (b-foo-sum-1 S)]
+[(b-foo x _) (sum b-foo x S) --> (b-foo-sum-2 x S)]
+[(b-foo x _) (> x 1) (sum b-foo x S) --> (b-foo-sum-3 x S)]
+
+;; maximum && minimum
+(c-foo "a" 1) (c-foo "a" 10) (c-foo "a" 100) (c-foo "a" 1000)
+(c-foo "b" 2) (c-foo "b" 20) (c-foo "b" 200) (c-foo "b" 2000)
+
+[(c-foo x _) (maximum c-foo x max) --> (c-foo-max x max)]
+[(c-foo x _) (minimum c-foo x min) --> (c-foo-min x min)]
+
+

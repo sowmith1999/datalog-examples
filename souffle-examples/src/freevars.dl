@@ -1,0 +1,18 @@
+// Relation to store when a variable x is free in an expression
+.decl free(x: symbol, expr: symbol)
+
+// Rule to say that x is free in a reference to x
+free(x, ref(x)).
+
+// Rule to say that x is free in a lambda expression (lam y eb) 
+// if x is free in the body of the lambda (eb) and x is not equal to y
+free(x, lam(y, eb)) :- free(x, eb), x != y.
+
+// Rule to say that x is free in an application (app ef ea) 
+// if x is free in either the function part (ef) or the argument part (ea)
+free(x, app(ef, ea)) :- free(x, ef).
+free(x, app(ef, ea)) :- free(x, ea).
+
+// Output relation to see the results
+.output free
+

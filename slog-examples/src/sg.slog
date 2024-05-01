@@ -1,0 +1,12 @@
+(parent "d" "b") 
+(parent "e" "b") 
+(parent "f" "c")
+(parent "g" "c") 
+(parent "b" "a") 
+(parent "c" "a")
+
+[(person x) (person y) <-- (parent x y)]
+
+[(samegen x x) <-- (person x)]
+
+[(samegen x y) <-- (parent x p) (samegen p q) (parent y q)]

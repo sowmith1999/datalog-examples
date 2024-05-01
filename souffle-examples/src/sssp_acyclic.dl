@@ -1,0 +1,55 @@
+// uses string to accumulate path and only works for acyclic graphs
+.decl edge(n:symbol, y:symbol, weight:number)
+//Acyclic Graph
+//    edge("1","2",1). edge("2","3",2). edge("2","4",1).
+//    edge("3","5",2). edge("4","5",1). edge("5","6",2).
+//Cyclic Graph
+    edge("1","2",1). edge("3","2",2). edge("2","4",1).
+    edge("5","3",2). edge("4","5",1). edge("5","6",2).
+
+.decl source_node(x:symbol)
+    source_node("1").
+
+.decl path(x:symbol, y:symbol, weight:number, ac_path:symbol)
+    .output path
+
+.decl shortest_dist(x:symbol, y:symbol, weight:number)
+    .output shortest_dist
+
+.decl shortest_path(x:symbol, y:symbol, weight:number, pt:symbol)
+    .output shortest_path
+
+path(from, to, w, cat(from,"->", to)) :- edge(from, to, w).
+
+path(from, to, acc + w, cat(ac_path, "->", to))  
+        :- path(from, mid, acc, ac_path), edge(mid, to, w).
+
+shortest_dist(from, to, min_dist) 
+        :- source_node(from), path(from, to, _, _), min_dist = min weight:{path(from, to, weight, _)}.
+
+shortest_path(from, to, min_dist, pt) :- shortest_dist(from, to, min_dist), path(from, to, min_dist, pt).
+
+// Non string version
+.decl edge(n:number, y:number, weight:number)
+    edge(1,2,1). edge(2,3,2). edge(2,4,1).
+    edge(3,5,2). edge(4,5,1). edge(5,6,2).
+
+.decl path(x:number, y:number, weight:number, ac_path:symbol)
+    .output path
+
+.decl node(x:number)
+    .output node
+
+.decl source_node(x:number)
+source_node(1).
+
+.decl path_list(src:number, id:number,  to:number)
+    .output path_list
+
+
+node(a),node(b) :- edge(a,b,_).
+
+path(from, to, w), path_list(from, to, autoinc()) :- edge(from, to, w).
+
+path(from, to, acc + w), path_list(from, to, autoinc()) 
+        :- path(from, mid, acc), edge(mid, to, w), !path_list(from, to, _).

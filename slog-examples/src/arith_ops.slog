@@ -1,0 +1,22 @@
+(plus {+ 1 1}) ;does the computation eagerly and adds the fact (plus 2) to the database
+[(plus {+ acc 1}) <-- (plus acc) (< acc 5)]
+
+[(+ 1 1 val) --> (plus-trad val)]
+[(plus-trad acc) (< acc 5) (+ acc 1 val) --> (plus-trad val)]
+
+
+(minus {- 0 1})
+[(minus {- acc 1}) <-- (minus acc) (> acc -5)]
+
+(multiply {* 1 2} 1)
+[(multiply {* acc 2} {+ 1 power}) <-- (multiply acc power) (<= power 5)]
+
+(divide {/ 128 1})
+[(divide {/ acc 2}) <-- (divide acc)]
+
+;; modulo not supported
+;; (modulo {% 128 2})
+
+;; Power not supported
+;; (power {* 2 6})
+

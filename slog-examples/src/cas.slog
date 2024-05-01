@@ -1,0 +1,25 @@
+;; Picked up from source written by Akshar Patel
+;; CAPTURE AVOIDING SUBSTITUTION
+
+[(=/= x y) --> (subst ?(do-subst (ref y) x exp') (ref y))]
+; [(do-subst (ref y) x exp') (=/= x y) --> (subst (do-subst (ref y) x exp') (ref y))]
+
+
+(subst ?(do-subst (ref x) x exp') exp')
+
+[(subst !(do-subst ef x exp') ef')
+ (subst !(do-subst ea x exp') ea')
+    -->(subst ?(do-subst (app ef ea) x exp') (app ef' ea'))]
+
+(subst ?(do-subst (lam y eb) y exp') (lam y eb))
+[(~ free y exp') (=/= x y) 
+    --> (subst ?(do-subst (lam y eb) x exp') 
+        (lam y {subst !(do-subst eb x exp')}))]
+; IS EQUAL TO (subst ?(do0-subst (app ef ea) x exp`))
+    ;(app {subst !(do-subst ef x exp`)}
+    ;(app {subst !(so-subst ea x exp`)}))
+; ! allows you to execute on facts before checking condition (kind of like a direct function call)
+
+; two rules left. you'll need ~(free x exp)
+(do-subst (ref "y") "x" (lam "y" (lam "x" (app (ref "y") (app (ref "z") (ref "x"))))))
+

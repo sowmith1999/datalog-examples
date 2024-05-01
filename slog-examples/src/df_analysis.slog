@@ -1,0 +1,20 @@
+;; Converted from Souffle Docs examples
+(edge "start" "b1")
+(edge "b1" "b2")
+(edge "b1" "b3")
+(edge "b2" "b4")
+(edge "b3" "b4")
+(edge "b4" "b1")
+(edge "b4" "end")
+
+;; Generating Definitions
+(GenDef "b2" "d1")
+(GenDef "b4" "d2")
+
+;; Killing Definitions
+(KillDef "b4" "d1")
+(KillDef "b2" "d2")
+;; Reachable
+[(Reachable u d) <-- (GenDef u d)]
+[(Reachable v d) <-- (edge u v) (Reachable u d)  ~(KillDef u d)]
+

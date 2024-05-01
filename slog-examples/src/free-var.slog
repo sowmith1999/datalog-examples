@@ -1,0 +1,16 @@
+; Free-vars example from akshar's rack
+
+; This examples introduces the form ? and or and =/=
+
+[(free x (ref x)) <-- (ref x)]
+;; (free x ?(ref x))
+
+;; [(free x ?(lam y eb)) <-- (free x eb) (=/= x y)]
+
+[(free x ?(app ef ea)) <-- (or (free x ef) (free x ea))]
+
+;; [(free-tot x) <-- (free x (lam "y" (lam "x" (app (ref "y") (app (ref "z") (ref "x"))))))]
+
+;(lam "x"(lam "y" (app (ref "x") (ref "y")))
+;; (lam "y" (lam "x" (app (ref "x") (ref "z")))
+(lam "y" (lam "x" (app (ref "y") (app (ref "z") (ref "x")))))

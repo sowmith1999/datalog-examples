@@ -1,0 +1,19 @@
+// Non string version
+.decl edge(n:number, y:number, weight:number)
+    edge(1,2,1). edge(2,3,2). edge(2,4,1).
+    edge(3,5,2). edge(4,5,1). edge(5,6,2).
+
+.decl path(x:number, y:number, weight:number)
+    .output path
+
+.decl source_node(x:number)
+source_node(1).
+
+.decl path_list(src:number, to:number)
+    .output path_list
+
+path(from, to, w), path_list(from, to) :- edge(from, to, w).
+//path(from, to, w), path_list(from, to, autoinc()) :- edge(from, to, w).
+
+path(from, to, acc + w), path_list(from, to) 
+        :- path(from, mid, acc), edge(mid, to, w), !path_list(from, to).
