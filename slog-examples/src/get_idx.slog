@@ -1,0 +1,20 @@
+(input-list (list 1 (list 2 (list 3 (list 4 (list 5 (list 6 (list 7 (nil)))))))))
+(input-list (list "a" (list "b" (list "c" (list "d" (list "e" (list "f" (list "g" (nil)))))))))
+
+(elem ?(get-idx lst idx (list hd rst) 0) hd)
+[(get-idx lst idx (list hd rst) cur_idx) (elem !(get-idx lst idx rst {- cur_idx 1}) ele)
+    --> (elem (get-idx lst idx (list hd rst) cur_idx) ele)]
+
+; (idx 0) (idx 1) (idx 2) (idx 3) (idx 4) (idx 5) (idx 6)
+
+; [(elem !(get-idx {input-list} 3 {input-list} 3) ele) --> (idx-elem {input-list} 3 ele)]
+
+(length ?(do-length (nil)) 0)
+[(do-length (list hd rst)) (length !(do-length rst) len-rst) --> (length (do-length (list hd rst)) {+ len-rst 1})]
+[(length !(do-length {input-list}) res) --> (list-length res)]
+
+[(list-length len) --> (idx {- len 1})]
+[(idx val) (> val 0) --> (idx {- val 1})]
+
+
+[(input-list lst) (idx dx) (elem !(get-idx lst dx lst dx) ele) --> (idx-elem lst dx ele)]

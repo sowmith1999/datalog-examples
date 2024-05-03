@@ -1,0 +1,57 @@
+;; A poor man's attempt at making trees
+(input-list (list 1 (list 2 (list 3 (list 4 (list 5 (list 6 (list 7 (nil)))))))))
+; (input-list (list 1 (list 2 (list 3 (list 4 (list 5 (list 6 (nil))))))))
+
+;; List Length
+(length ?(do-length (nil)) 0)
+[(do-length (list hd rst)) (length !(do-length rst) len-rst) --> (length (do-length (list hd rst)) {+ len-rst 1})]
+;; Gets the element at idx in a list
+(elem ?(get-idx lst idx (list hd rst) 0) hd)
+[(get-idx lst idx (list hd rst) cur_idx) (elem !(get-idx lst idx rst {- cur_idx 1}) ele)
+    --> (elem (get-idx lst idx (list hd rst) cur_idx) ele)]
+
+;; Helper for getting the element at each idx
+[(list-length len) --> (idx {- len 1})]
+[(idx val) (> val 0) --> (idx {- val 1})]
+[(length !(do-length {input-list}) res) --> (list-length res)]
+[(input-list lst) (idx dx) (elem !(get-idx lst dx lst dx) ele) --> (idx-elem lst dx ele)]
+
+;; Building the tree from the list
+;; Base case, start==end
+[(make-tree lst start end) (= start end) (idx-elem lst start ele)
+     --> (sub-tree ele (make-tree lst start end) (nil) (nil))]
+
+;; When left sub-tree doesn't exist, i.e., mid-p==0
+[(make-tree lst start end) 
+ (=/= start end)
+ (/ {+ start end} 2 mid-p)
+ (= mid-p 0)
+ (sub-tree right-node !(make-tree lst {+ mid-p 1} end) right-left-tree right-right-tree)
+ (idx-elem lst mid-p root)
+       --> (sub-tree root (make-tree lst start end) 
+                     (nil) 
+                     (sub-tree right-node (make-tree lst {+ mid-p 1} end) right-left-tree right-right-tree))]
+;; Both sub-trees exist
+[(make-tree lst start end) 
+ (=/= start end)
+ (/ {+ start end} 2 mid-p)
+ (> mid-p 0)
+ (sub-tree left-node !(make-tree lst start {- mid-p 1}) left-left-tree left-right-tree) 
+ (sub-tree right-node !(make-tree lst {+ mid-p 1} end) right-left-tree right-right-tree)
+ (idx-elem lst mid-p root)
+       --> (sub-tree root (make-tree lst start end) 
+                     (sub-tree left-node (make-tree lst start {- mid-p 1}) left-left-tree left-right-tree) 
+                     (sub-tree right-node (make-tree lst {+ mid-p 1} end) right-left-tree right-right-tree))]
+
+;; Main caller
+[(input-list lst) (list-length len) (sub-tree root !(make-tree lst 0 {- len 1}) left-tree right-tree) 
+      --> (tree root left-tree right-tree)]
+
+;; Right now, the sub-tree facts have make-tree fact in them, which works but looks bad
+;; Output for the first list
+;; (tree 4 (sub-tree 2 (make-tree (list 1 (list 2 (list 3 (list #20)))) 0 2) (sub-tree 1 (make-tree (list 1 (list 2 (list #19))) 0 0) (nil ) (nil )) (sub-tree 3 (make-tree (list 1 (list 2 (list #19))) 2 2) (nil ) (nil ))) (sub-tree 6 (make-tree (list 1 (list 2 (list 3 (list #20)))) 4 6) (sub-tree 5 (make-tree (list 1 (list 2 (list #19))) 4 4) (nil ) (nil )) (sub-tree 7 (make-tree (list 1 (list 2 (list #19))) 6 6) (nil ) (nil ))))
+
+;; When the make-tree facts are removed, looks like
+; (tree 4 (sub-tree 2  (sub-tree 1  (nil ) (nil )) (sub-tree 3  (nil ) (nil ))) (sub-tree 6  (sub-tree 5  (nil ) (nil )) (sub-tree 7  (nil ) (nil ))))
+
+;; Should be fairly intuitive membership check 
