@@ -1,0 +1,11 @@
+; (node n) is input
+(node 1)
+(node 2)
+(node 3)
+(node 4)
+(node 5)
+(node 6)
+(node 7)
+(node 8)
+[(order a b) <-- (<= a b) (node a) (node b)]
+[(supremum a {maximum order a}) <-- (node a)]

@@ -16,3 +16,4 @@ has cyclic negation in file sssp.dl at line 19
 1 errors generated, evaluation aborted
 ```
 - I have no idea how negation works, Have to read Chapter 15 from Alice Book
+- Because these are Horn Clauses

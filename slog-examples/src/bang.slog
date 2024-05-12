@@ -1,0 +1,10 @@
+[(foo x) 
+(bar !(baz x) y)
+  --> 
+    (boop x y)]
+
+[(foo x) --> (= s (baz x)) (bbop s)]
+[(= id (baz x))
+ (foo x) 
+ (bar id y) 
+    --> (boop x y)]
