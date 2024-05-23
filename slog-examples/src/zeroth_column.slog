@@ -1,0 +1,7 @@
+(edge 1 2)
+(edge 2 3)
+(edge 3 4)
+
+[(= id (edge 1 2)) --> (zero id)]
+
+;; Yeah, this is the same as just writing the fact in the body, and in the head, I couldn't get the "0th" column value out

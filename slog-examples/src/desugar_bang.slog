@@ -1,0 +1,14 @@
+(input-list (list 1 (list 2 (list 3 (nil)))))
+
+; [(length !(do-length {input-list}) res) --> (print-length-res res)]
+(do-length {input-list})
+[(length (do-length {input-list}) res) --> (print-length-res res)]
+
+; [(do-length (list hd rst)) (length !(do-length rst) len-rst) 
+;     --> (length (do-length (list hd rst)) {+ len-rst 1})]
+[(do-length (list hd rst)) --> (do-length rst)]
+[(do-length (list hd rst)) (length (do-length rst) len-rst)
+    --> (length (do-length (list hd rst)) {+ len-rst 1})]
+
+[(do-length (nil)) --> (length (do-length (nil)) 0)]
+

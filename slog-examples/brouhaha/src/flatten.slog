@@ -1,0 +1,67 @@
+(store 
+  (f-addr [] "append") 
+  (define "append" 
+    (varparam "vargs") 
+    (let [(binding "l1" (app (ref "car") [(ref "vargs")])) 
+          (binding "vargs8779" (app (ref "cdr") [(ref "vargs")]))] 
+      (let [(binding "l2" (app (ref "car") [(ref "vargs8779")])) 
+            (binding "vargs8780" (app (ref "cdr") 
+                                      [(ref "vargs8779")]))] 
+        (let [ (binding "lsts" (ref "vargs8780"))] 
+          (if 
+            (app (ref "null?") 
+                   [(ref "lsts")]) 
+            (app (ref "append1") 
+                 [(ref "l1")(ref "l2")]) 
+            (app (ref "foldr") 
+                 [(ref "append1") 
+                  (app (ref "list") []) 
+                  (app (ref "append1") 
+                       [(app (ref "list") 
+                             [(ref "l1") (ref "l2")]) (ref "lsts")])])))))))
+
+(store (f-addr [] "ack") 
+       (define "ack" 
+         (fixedparam ["m" "n" ]) 
+         (if 
+           (app 
+             (ref "=") 
+             [(ref "m")(int "0")]) 
+           (app 
+             (ref "+") 
+             [(ref "n")(int "1")])
+           (if 
+             (app 
+               (ref "=") 
+               [(ref "n")(int "0")]) 
+             (app 
+               (ref "ack") 
+               [(app 
+                  (ref "-") 
+                  [(ref "m")(int "1")])(int "1")]) 
+             (app 
+               (ref "ack") 
+               [(app 
+                  (ref "-") 
+                  [(ref "m")(int "1")])
+                (app 
+                  (ref "ack") 
+                  [(ref "m")(app 
+                              (ref "-") 
+                              [(ref "n")(int "1")])])])))))
+
+[(store f-addr-val func-val) 
+ --> (flatten-f-addr f-addr-val) (flatten-define func-val)]
+[(store f-addr-val func-val) 
+ (flattened-f-addr f-addr-val (flat-faddr fun-name)) 
+ (flattened-define func-val flat-func)
+  --> (flat-store fun-name )]
+
+[(f-addr lst fun-name) --> (flattened-f-addr (f-addr lst fun-name) (flat-faddr lst fun-name))]
+
+; [(define func-name params body) --> (flatten-body body)]
+[(define func-name params body) (flattened-body body flat-body) 
+    --> (flattened-define (define func-name params body) 
+                          (flat-define func-name params flat-body))]
+
+[(

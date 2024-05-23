@@ -1,0 +1,31 @@
+;; Lambda calculus mCFA
+;; Slog Pre-Print
+
+;; Eval states
+[(eval (ref x) k c) --> (ret {store (addr x c)} k)]
+
+[(eval (lam x body) k c) --> (ret (clo (lam x body) c) k)]
+
+[(eval (app ef ea) k c) --> (eval ef (ar-k ea (app ef ea) c k) c)]
+
+;; Ret states
+[(ret vf (ar-k ea call c k)) --> (eval ea (fn-k vf call c k) c)]
+
+[(ret va (fn-k vf call c k)) --> (apply call vf va k c)]
+
+[(ret v (kaddr e c)) (store (kaddr e c) k) --> (ret v k)]
+
+;; Apply states
+[(apply call (clo (lam x Eb) _) va k c)
+-->
+  (eval Eb (kaddr Eb c') c')
+  (store (kaddr Eb c') k)
+  (store (addr x c') va)
+  (= c' {tick !(do-tick call c)})]
+
+; Propagate free vars
+[(free y (lam x body))
+(apply call (clo (lam x body) clam) _ _ c)
+  -->
+  (store (addr y {tick !(do-tick call c)})
+  {store (addr y clam)})]
