@@ -1,0 +1,12 @@
+;(store (f-addr [] "ack")
+          ; (define "ack"
+          ;   (fixedparam ["m" "n"])
+          ;   (if (app (ref "=") [(ref "m") (int "0")])
+          ;       (app (ref "+") [(ref "n") (int "1")])
+          ;       (if (app (ref "=") [(ref "n") (int "0")])
+          ;           (app (ref "ack") [(app (ref "-") [(ref "m") (int "1")]) (int "1")])
+          ;           (app (ref "ack")
+          ;                [(app (ref "-") [(ref "m") (int "1")])
+          ;                 (app (ref "ack") [(ref "m") (app (ref "-") [(ref "n") (int "1")])])])))))
+[(flat-store id fun-name flat-define-id) (flat-define flat-define-id fun-name params-id body-id)
+  --> (store (f-addr [] fun-name) params-id body-id)] 
