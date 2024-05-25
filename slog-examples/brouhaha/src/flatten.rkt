@@ -1,6 +1,6 @@
 #lang racket
 
-;; I have no idea what I am going to write in this blank file
+
 (require print-debug/print-dbg)
 (require racket/string)
 (define input
