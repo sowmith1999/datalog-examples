@@ -1,0 +1,564 @@
+[(flat-fixedparam id  "flat-list-4" flat-list-4-1-id ) (list-4-holder flat-list-4-1-id lifted-list-4-1-fact ) --> (fixedparam-holder id (fixedparam lifted-list-4-1-fact ))]
+[(flat-list-0 id ) --> ( list-0-holder id [])]
+[(flat-list-2 id  "flat-int" flat-int-2-id  "flat-app" flat-app-1-id ) (int-holder flat-int-2-id lifted-int-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> ( list-2-holder id [lifted-int-2-fact lifted-app-1-fact ])]
+[(flat-if id  "flat-if" flat-if-3-id  "flat-if" flat-if-2-id  "flat-app" flat-app-1-id ) (if-holder flat-if-3-id lifted-if-3-fact ) (if-holder flat-if-2-id lifted-if-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> (if-holder id (if lifted-if-3-fact lifted-if-2-fact lifted-app-1-fact ))]
+[(flat-ref id  "datum" datum1-val ) --> (ref-holder id (ref datum1-val ))]
+[(flat-list-2 id  "flat-app" flat-app-2-id  "flat-ref" flat-ref-1-id ) (app-holder flat-app-2-id lifted-app-2-fact ) (ref-holder flat-ref-1-id lifted-ref-1-fact ) --> ( list-2-holder id [lifted-app-2-fact lifted-ref-1-fact ])]
+[(flat-list-2 id  "flat-app" flat-app-2-id  "flat-int" flat-int-1-id ) (app-holder flat-app-2-id lifted-app-2-fact ) (int-holder flat-int-1-id lifted-int-1-fact ) --> ( list-2-holder id [lifted-app-2-fact lifted-int-1-fact ])]
+[(flat-define-prim id  "datum" datum2-val  "flat-varparam" flat-varparam-1-id ) (varparam-holder flat-varparam-1-id lifted-varparam-1-fact ) --> (define-prim-holder id (define-prim datum2-val lifted-varparam-1-fact ))]
+[(flat-if id  "flat-app" flat-app-3-id  "flat-app" flat-app-2-id  "flat-ref" flat-ref-1-id ) (app-holder flat-app-3-id lifted-app-3-fact ) (app-holder flat-app-2-id lifted-app-2-fact ) (ref-holder flat-ref-1-id lifted-ref-1-fact ) --> (if-holder id (if lifted-app-3-fact lifted-app-2-fact lifted-ref-1-fact ))]
+[(flat-if id  "flat-app" flat-app-3-id  "flat-ref" flat-ref-2-id  "flat-if" flat-if-1-id ) (app-holder flat-app-3-id lifted-app-3-fact ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (if-holder flat-if-1-id lifted-if-1-fact ) --> (if-holder id (if lifted-app-3-fact lifted-ref-2-fact lifted-if-1-fact ))]
+[(flat-if id  "flat-ref" flat-ref-3-id  "flat-bool" flat-bool-2-id  "flat-bool" flat-bool-1-id ) (ref-holder flat-ref-3-id lifted-ref-3-fact ) (bool-holder flat-bool-2-id lifted-bool-2-fact ) (bool-holder flat-bool-1-id lifted-bool-1-fact ) --> (if-holder id (if lifted-ref-3-fact lifted-bool-2-fact lifted-bool-1-fact ))]
+[(flat-if id  "flat-app" flat-app-3-id  "flat-int" flat-int-2-id  "flat-app" flat-app-1-id ) (app-holder flat-app-3-id lifted-app-3-fact ) (int-holder flat-int-2-id lifted-int-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> (if-holder id (if lifted-app-3-fact lifted-int-2-fact lifted-app-1-fact ))]
+[(flat-prim-count id  "datum" datum2-val  "flat-list-1" flat-list-1-1-id ) (list-1-holder flat-list-1-1-id lifted-list-1-1-fact ) --> (prim-count-holder id (prim-count datum2-val lifted-list-1-1-fact ))]
+[(flat-list-2 id  "datum" datum2-val  "datum" datum1-val ) --> ( list-2-holder id [datum2-val datum1-val ])]
+[(flat-app id  "flat-ref" flat-ref-2-id  "flat-list-3" flat-list-3-1-id ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (list-3-holder flat-list-3-1-id lifted-list-3-1-fact ) --> (app-holder id (app lifted-ref-2-fact lifted-list-3-1-fact ))]
+[(flat-list-1 id  "datum" datum1-val ) --> ( list-1-holder id [datum1-val ])]
+[(flat-list-3 id  "flat-lambda" flat-lambda-3-id  "flat-int" flat-int-2-id  "flat-app" flat-app-1-id ) (lambda-holder flat-lambda-3-id lifted-lambda-3-fact ) (int-holder flat-int-2-id lifted-int-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> ( list-3-holder id [lifted-lambda-3-fact lifted-int-2-fact lifted-app-1-fact ])]
+[(flat-if id  "flat-app" flat-app-3-id  "flat-app" flat-app-2-id  "flat-app" flat-app-1-id ) (app-holder flat-app-3-id lifted-app-3-fact ) (app-holder flat-app-2-id lifted-app-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> (if-holder id (if lifted-app-3-fact lifted-app-2-fact lifted-app-1-fact ))]
+[(flat-int id  "datum" datum1-val ) --> (int-holder id (int datum1-val ))]
+[(flat-app id  "flat-ref" flat-ref-2-id  "flat-list-2" flat-list-2-1-id ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (list-2-holder flat-list-2-1-id lifted-list-2-1-fact ) --> (app-holder id (app lifted-ref-2-fact lifted-list-2-1-fact ))]
+[(flat-if id  "flat-app" flat-app-3-id  "flat-ref" flat-ref-2-id  "flat-app" flat-app-1-id ) (app-holder flat-app-3-id lifted-app-3-fact ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> (if-holder id (if lifted-app-3-fact lifted-ref-2-fact lifted-app-1-fact ))]
+[(flat-list-7 id  "flat-ref" flat-ref-7-id  "flat-ref" flat-ref-6-id  "flat-ref" flat-ref-5-id  "flat-ref" flat-ref-4-id  "flat-if" flat-if-3-id  "flat-app" flat-app-2-id  "flat-ref" flat-ref-1-id ) (ref-holder flat-ref-7-id lifted-ref-7-fact ) (ref-holder flat-ref-6-id lifted-ref-6-fact ) (ref-holder flat-ref-5-id lifted-ref-5-fact ) (ref-holder flat-ref-4-id lifted-ref-4-fact ) (if-holder flat-if-3-id lifted-if-3-fact ) (app-holder flat-app-2-id lifted-app-2-fact ) (ref-holder flat-ref-1-id lifted-ref-1-fact ) --> ( list-7-holder id [lifted-ref-7-fact lifted-ref-6-fact lifted-ref-5-fact lifted-ref-4-fact lifted-if-3-fact lifted-app-2-fact lifted-ref-1-fact ])]
+[(flat-prim-count id  "datum" datum2-val  "flat-list-2" flat-list-2-1-id ) (list-2-holder flat-list-2-1-id lifted-list-2-1-fact ) --> (prim-count-holder id (prim-count datum2-val lifted-list-2-1-fact ))]
+[(flat-list-2 id  "flat-int" flat-int-2-id  "flat-int" flat-int-1-id ) (int-holder flat-int-2-id lifted-int-2-fact ) (int-holder flat-int-1-id lifted-int-1-fact ) --> ( list-2-holder id [lifted-int-2-fact lifted-int-1-fact ])]
+[(flat-store id  "flat-f-addr" flat-f-addr-2-id  "flat-define-prim" flat-define-prim-1-id ) (f-addr-holder flat-f-addr-2-id lifted-f-addr-2-fact ) (define-prim-holder flat-define-prim-1-id lifted-define-prim-1-fact ) --> (store-holder id (store lifted-f-addr-2-fact lifted-define-prim-1-fact ))]
+[(flat-list-12 id  "flat-app" flat-app-12-id  "flat-app" flat-app-11-id  "flat-app" flat-app-10-id  "flat-app" flat-app-9-id  "flat-app" flat-app-8-id  "flat-app" flat-app-7-id  "flat-app" flat-app-6-id  "flat-app" flat-app-5-id  "flat-app" flat-app-4-id  "flat-app" flat-app-3-id  "flat-app" flat-app-2-id  "flat-app" flat-app-1-id ) (app-holder flat-app-12-id lifted-app-12-fact ) (app-holder flat-app-11-id lifted-app-11-fact ) (app-holder flat-app-10-id lifted-app-10-fact ) (app-holder flat-app-9-id lifted-app-9-fact ) (app-holder flat-app-8-id lifted-app-8-fact ) (app-holder flat-app-7-id lifted-app-7-fact ) (app-holder flat-app-6-id lifted-app-6-fact ) (app-holder flat-app-5-id lifted-app-5-fact ) (app-holder flat-app-4-id lifted-app-4-fact ) (app-holder flat-app-3-id lifted-app-3-fact ) (app-holder flat-app-2-id lifted-app-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> ( list-12-holder id [lifted-app-12-fact lifted-app-11-fact lifted-app-10-fact lifted-app-9-fact lifted-app-8-fact lifted-app-7-fact lifted-app-6-fact lifted-app-5-fact lifted-app-4-fact lifted-app-3-fact lifted-app-2-fact lifted-app-1-fact ])]
+[(flat-app id  "flat-ref" flat-ref-2-id  "flat-list-12" flat-list-12-1-id ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (list-12-holder flat-list-12-1-id lifted-list-12-1-fact ) --> (app-holder id (app lifted-ref-2-fact lifted-list-12-1-fact ))]
+[(flat-varparam id  "datum" datum1-val ) --> (varparam-holder id (varparam datum1-val ))]
+[(flat-store id  "flat-f-addr" flat-f-addr-2-id  "flat-define" flat-define-1-id ) (f-addr-holder flat-f-addr-2-id lifted-f-addr-2-fact ) (define-holder flat-define-1-id lifted-define-1-fact ) --> (store-holder id (store lifted-f-addr-2-fact lifted-define-1-fact ))]
+[(flat-fixedparam id  "flat-list-1" flat-list-1-1-id ) (list-1-holder flat-list-1-1-id lifted-list-1-1-fact ) --> (fixedparam-holder id (fixedparam lifted-list-1-1-fact ))]
+[(flat-if id  "flat-if" flat-if-3-id  "flat-if" flat-if-2-id  "flat-bool" flat-bool-1-id ) (if-holder flat-if-3-id lifted-if-3-fact ) (if-holder flat-if-2-id lifted-if-2-fact ) (bool-holder flat-bool-1-id lifted-bool-1-fact ) --> (if-holder id (if lifted-if-3-fact lifted-if-2-fact lifted-bool-1-fact ))]
+[(flat-list-4 id  "datum" datum4-val  "datum" datum3-val  "datum" datum2-val  "datum" datum1-val ) --> ( list-4-holder id [datum4-val datum3-val datum2-val datum1-val ])]
+[(flat-list-4 id  "flat-ref" flat-ref-4-id  "flat-ref" flat-ref-3-id  "flat-app" flat-app-2-id  "flat-app" flat-app-1-id ) (ref-holder flat-ref-4-id lifted-ref-4-fact ) (ref-holder flat-ref-3-id lifted-ref-3-fact ) (app-holder flat-app-2-id lifted-app-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> ( list-4-holder id [lifted-ref-4-fact lifted-ref-3-fact lifted-app-2-fact lifted-app-1-fact ])]
+[(flat-list-1 id  "flat-ref" flat-ref-1-id ) (ref-holder flat-ref-1-id lifted-ref-1-fact ) --> ( list-1-holder id [lifted-ref-1-fact ])]
+[(flat-app id  "flat-ref" flat-ref-2-id  "flat-list-7" flat-list-7-1-id ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (list-7-holder flat-list-7-1-id lifted-list-7-1-fact ) --> (app-holder id (app lifted-ref-2-fact lifted-list-7-1-fact ))]
+[(flat-define id  "datum" datum3-val  "flat-fixedparam" flat-fixedparam-2-id  "flat-app" flat-app-1-id ) (fixedparam-holder flat-fixedparam-2-id lifted-fixedparam-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> (define-holder id (define datum3-val lifted-fixedparam-2-fact lifted-app-1-fact ))]
+[(flat-fixedparam id  "flat-list-7" flat-list-7-1-id ) (list-7-holder flat-list-7-1-id lifted-list-7-1-fact ) --> (fixedparam-holder id (fixedparam lifted-list-7-1-fact ))]
+[(flat-list-2 id  "flat-app" flat-app-2-id  "flat-app" flat-app-1-id ) (app-holder flat-app-2-id lifted-app-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> ( list-2-holder id [lifted-app-2-fact lifted-app-1-fact ])]
+[(flat-fixedparam id  "flat-list-0" flat-list-0-1-id ) (list-0-holder flat-list-0-1-id lifted-list-0-1-fact ) --> (fixedparam-holder id (fixedparam lifted-list-0-1-fact ))]
+[(flat-define id  "datum" datum3-val  "flat-fixedparam" flat-fixedparam-2-id  "flat-if" flat-if-1-id ) (fixedparam-holder flat-fixedparam-2-id lifted-fixedparam-2-fact ) (if-holder flat-if-1-id lifted-if-1-fact ) --> (define-holder id (define datum3-val lifted-fixedparam-2-fact lifted-if-1-fact ))]
+[(flat-list-7 id  "flat-ref" flat-ref-7-id  "flat-ref" flat-ref-6-id  "flat-ref" flat-ref-5-id  "flat-ref" flat-ref-4-id  "flat-ref" flat-ref-3-id  "flat-app" flat-app-2-id  "flat-ref" flat-ref-1-id ) (ref-holder flat-ref-7-id lifted-ref-7-fact ) (ref-holder flat-ref-6-id lifted-ref-6-fact ) (ref-holder flat-ref-5-id lifted-ref-5-fact ) (ref-holder flat-ref-4-id lifted-ref-4-fact ) (ref-holder flat-ref-3-id lifted-ref-3-fact ) (app-holder flat-app-2-id lifted-app-2-fact ) (ref-holder flat-ref-1-id lifted-ref-1-fact ) --> ( list-7-holder id [lifted-ref-7-fact lifted-ref-6-fact lifted-ref-5-fact lifted-ref-4-fact lifted-ref-3-fact lifted-app-2-fact lifted-ref-1-fact ])]
+[(flat-fixedparam id  "flat-list-2" flat-list-2-1-id ) (list-2-holder flat-list-2-1-id lifted-list-2-1-fact ) --> (fixedparam-holder id (fixedparam lifted-list-2-1-fact ))]
+[(flat-list-20 id  "flat-int" flat-int-20-id  "flat-int" flat-int-19-id  "flat-int" flat-int-18-id  "flat-int" flat-int-17-id  "flat-int" flat-int-16-id  "flat-int" flat-int-15-id  "flat-int" flat-int-14-id  "flat-int" flat-int-13-id  "flat-int" flat-int-12-id  "flat-int" flat-int-11-id  "flat-int" flat-int-10-id  "flat-int" flat-int-9-id  "flat-int" flat-int-8-id  "flat-int" flat-int-7-id  "flat-int" flat-int-6-id  "flat-int" flat-int-5-id  "flat-int" flat-int-4-id  "flat-int" flat-int-3-id  "flat-int" flat-int-2-id  "flat-int" flat-int-1-id ) (int-holder flat-int-20-id lifted-int-20-fact ) (int-holder flat-int-19-id lifted-int-19-fact ) (int-holder flat-int-18-id lifted-int-18-fact ) (int-holder flat-int-17-id lifted-int-17-fact ) (int-holder flat-int-16-id lifted-int-16-fact ) (int-holder flat-int-15-id lifted-int-15-fact ) (int-holder flat-int-14-id lifted-int-14-fact ) (int-holder flat-int-13-id lifted-int-13-fact ) (int-holder flat-int-12-id lifted-int-12-fact ) (int-holder flat-int-11-id lifted-int-11-fact ) (int-holder flat-int-10-id lifted-int-10-fact ) (int-holder flat-int-9-id lifted-int-9-fact ) (int-holder flat-int-8-id lifted-int-8-fact ) (int-holder flat-int-7-id lifted-int-7-fact ) (int-holder flat-int-6-id lifted-int-6-fact ) (int-holder flat-int-5-id lifted-int-5-fact ) (int-holder flat-int-4-id lifted-int-4-fact ) (int-holder flat-int-3-id lifted-int-3-fact ) (int-holder flat-int-2-id lifted-int-2-fact ) (int-holder flat-int-1-id lifted-int-1-fact ) --> ( list-20-holder id [lifted-int-20-fact lifted-int-19-fact lifted-int-18-fact lifted-int-17-fact lifted-int-16-fact lifted-int-15-fact lifted-int-14-fact lifted-int-13-fact lifted-int-12-fact lifted-int-11-fact lifted-int-10-fact lifted-int-9-fact lifted-int-8-fact lifted-int-7-fact lifted-int-6-fact lifted-int-5-fact lifted-int-4-fact lifted-int-3-fact lifted-int-2-fact lifted-int-1-fact ])]
+[(flat-prim-count id  "datum" datum2-val  "flat-list-0" flat-list-0-1-id ) (list-0-holder flat-list-0-1-id lifted-list-0-1-fact ) --> (prim-count-holder id (prim-count datum2-val lifted-list-0-1-fact ))]
+[(flat-app id  "flat-ref" flat-ref-2-id  "flat-list-1" flat-list-1-1-id ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (list-1-holder flat-list-1-1-id lifted-list-1-1-fact ) --> (app-holder id (app lifted-ref-2-fact lifted-list-1-1-fact ))]
+[(flat-list-3 id  "flat-ref" flat-ref-3-id  "flat-app" flat-app-2-id  "flat-app" flat-app-1-id ) (ref-holder flat-ref-3-id lifted-ref-3-fact ) (app-holder flat-app-2-id lifted-app-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> ( list-3-holder id [lifted-ref-3-fact lifted-app-2-fact lifted-app-1-fact ])]
+[(flat-lambda id  "flat-fixedparam" flat-fixedparam-2-id  "flat-if" flat-if-1-id ) (fixedparam-holder flat-fixedparam-2-id lifted-fixedparam-2-fact ) (if-holder flat-if-1-id lifted-if-1-fact ) --> (lambda-holder id (lambda lifted-fixedparam-2-fact lifted-if-1-fact ))]
+[(flat-fixedparam id  "flat-list-3" flat-list-3-1-id ) (list-3-holder flat-list-3-1-id lifted-list-3-1-fact ) --> (fixedparam-holder id (fixedparam lifted-list-3-1-fact ))]
+[(flat-if id  "flat-if" flat-if-3-id  "flat-app" flat-app-2-id  "flat-app" flat-app-1-id ) (if-holder flat-if-3-id lifted-if-3-fact ) (app-holder flat-app-2-id lifted-app-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> (if-holder id (if lifted-if-3-fact lifted-app-2-fact lifted-app-1-fact ))]
+[(flat-list-3 id  "datum" datum3-val  "datum" datum2-val  "datum" datum1-val ) --> ( list-3-holder id [datum3-val datum2-val datum1-val ])]
+[(flat-list-7 id  "datum" datum7-val  "datum" datum6-val  "datum" datum5-val  "datum" datum4-val  "datum" datum3-val  "datum" datum2-val  "datum" datum1-val ) --> ( list-7-holder id [datum7-val datum6-val datum5-val datum4-val datum3-val datum2-val datum1-val ])]
+[(flat-prim-count id  "datum" datum2-val  "flat-list-3" flat-list-3-1-id ) (list-3-holder flat-list-3-1-id lifted-list-3-1-fact ) --> (prim-count-holder id (prim-count datum2-val lifted-list-3-1-fact ))]
+[(flat-list-7 id  "flat-ref" flat-ref-7-id  "flat-ref" flat-ref-6-id  "flat-ref" flat-ref-5-id  "flat-ref" flat-ref-4-id  "flat-bool" flat-bool-3-id  "flat-app" flat-app-2-id  "flat-int" flat-int-1-id ) (ref-holder flat-ref-7-id lifted-ref-7-fact ) (ref-holder flat-ref-6-id lifted-ref-6-fact ) (ref-holder flat-ref-5-id lifted-ref-5-fact ) (ref-holder flat-ref-4-id lifted-ref-4-fact ) (bool-holder flat-bool-3-id lifted-bool-3-fact ) (app-holder flat-app-2-id lifted-app-2-fact ) (int-holder flat-int-1-id lifted-int-1-fact ) --> ( list-7-holder id [lifted-ref-7-fact lifted-ref-6-fact lifted-ref-5-fact lifted-ref-4-fact lifted-bool-3-fact lifted-app-2-fact lifted-int-1-fact ])]
+[(flat-prim-count id  "datum" datum2-val  "flat-list-4" flat-list-4-1-id ) (list-4-holder flat-list-4-1-id lifted-list-4-1-fact ) --> (prim-count-holder id (prim-count datum2-val lifted-list-4-1-fact ))]
+[(flat-bool id  "datum" datum1-val ) --> (bool-holder id (bool datum1-val ))]
+[(flat-f-addr id  "flat-list-0" flat-list-0-2-id  "datum" datum1-val ) (list-0-holder flat-list-0-2-id lifted-list-0-2-fact ) --> (f-addr-holder id (f-addr lifted-list-0-2-fact datum1-val ))]
+[(flat-list-2 id  "flat-ref" flat-ref-2-id  "flat-ref" flat-ref-1-id ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (ref-holder flat-ref-1-id lifted-ref-1-fact ) --> ( list-2-holder id [lifted-ref-2-fact lifted-ref-1-fact ])]
+[(flat-app id  "flat-ref" flat-ref-2-id  "flat-list-20" flat-list-20-1-id ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (list-20-holder flat-list-20-1-id lifted-list-20-1-fact ) --> (app-holder id (app lifted-ref-2-fact lifted-list-20-1-fact ))]
+[(flat-app id  "flat-ref" flat-ref-2-id  "flat-list-4" flat-list-4-1-id ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (list-4-holder flat-list-4-1-id lifted-list-4-1-fact ) --> (app-holder id (app lifted-ref-2-fact lifted-list-4-1-fact ))]
+[(flat-list-2 id  "flat-ref" flat-ref-2-id  "flat-int" flat-int-1-id ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (int-holder flat-int-1-id lifted-int-1-fact ) --> ( list-2-holder id [lifted-ref-2-fact lifted-int-1-fact ])]
+[(flat-list-2 id  "flat-int" flat-int-2-id  "flat-ref" flat-ref-1-id ) (int-holder flat-int-2-id lifted-int-2-fact ) (ref-holder flat-ref-1-id lifted-ref-1-fact ) --> ( list-2-holder id [lifted-int-2-fact lifted-ref-1-fact ])]
+[(flat-list-1 id  "flat-app" flat-app-1-id ) (app-holder flat-app-1-id lifted-app-1-fact ) --> ( list-1-holder id [lifted-app-1-fact ])]
+[(flat-list-2 id  "flat-ref" flat-ref-2-id  "flat-app" flat-app-1-id ) (ref-holder flat-ref-2-id lifted-ref-2-fact ) (app-holder flat-app-1-id lifted-app-1-fact ) --> ( list-2-holder id [lifted-ref-2-fact lifted-app-1-fact ])]
+
+;----------------------------------------------------------------------;
+;;;;;;;;;;;;;;;;;;;;;;;;;ANALYSIS PROGRAM BELOW;;;;;;;;;;;;;;;;;;;;;;;;;
+;----------------------------------------------------------------------;
+
+
+;----------------------------------------------------------------------;
+;;;;;;;;;;;;;;;;;;;;;;;;::;;;;PRIM TAGGING::;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;----------------------------------------------------------------------;
+
+;NUMERIC-PRIMS
+(numeric-prim "+")
+(numeric-prim "-")
+(numeric-prim "*")
+(numeric-prim "/")
+(numeric-prim "=")
+(numeric-prim "modulo")
+
+
+;BOOL-PRIMS
+(bool-prim "=")
+(bool-prim ">")
+(bool-prim "<")
+(bool-prim "<=")
+(bool-prim ">=")
+(bool-prim "null?")
+(bool-prim "equal?")
+(bool-prim "eq?")
+
+
+
+
+;----------------------------------------------------------------------;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;FREE VARIABLES;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;----------------------------------------------------------------------;
+;NON-LIST-VALUES
+(non-list-value ?(symbol _))
+(non-list-value ?(bool _))
+(non-list-value ?(int _))
+(non-list-value ?(string _))
+(non-list-value ?(state _))
+
+
+; (non-list-value (or (addr _) (quote _) (string _) (bool _) (state _)))
+
+;REF VARIABLES
+(free x ?(ref x))
+
+;LAMBDAS
+[(free x eb)
+ (=/= y x)
+ -->
+ (free x ?(lambda (varparam y) eb))]
+
+[(free x eb)
+ -->
+ (do-free-lam ?(lambda (fixedparam ys) eb) ys x)]
+
+[(do-free-lam lam [y ys ...] x)
+ (=/= y x)
+ -->
+ (do-free-lam lam ys x)]
+
+[(do-free-lam lam [] x)
+ -->
+ (free x lam)]
+
+;APPL
+[(or (free x ef) (free x ea))
+ -->
+ (free x ?(appl ef ea))]
+
+;IF EXPRESSIONS
+[(or (free x guard) (free x tExp) (free x fExp))
+ -->
+ (free x ?(if guard tExp fExp))]
+
+;APP
+[(free x ef)
+ -->
+(free x ?(app ef eas))]
+
+(do-free-app ?(app ef eas) eas)
+
+[(do-free-app app [ea eas ...])
+ -->
+ (do-free-app app eas)
+ [(free x ea)
+  -->
+  (free x app)]]
+
+
+;LET BINDINGS RIGHT HAND SIDES
+(do-free-let-rhs ?(let binds body) binds)
+
+[(do-free-let-rhs let [bind binds ...])
+ -->
+(do-free-let-rhs let binds)]    
+
+[(do-free-let-rhs let [(binding lhs rhs) binds ...])
+ (free x rhs)
+ -->
+ (free x let)]
+
+;LET BINDINGS LEFT HAND SIDES
+[(free x body)
+ -->
+(do-free-let-lhs ?(let binds body) binds x)]
+
+[(do-free-let-lhs let [(binding lhs rhs) binds ...] x)
+ (=/= lhs x)
+ -->
+ (do-free-let-lhs let binds x)]
+
+[(do-free-let-lhs let [] x)
+ -->
+ (free x let)]
+
+
+
+;----------------------------------------------------------------------;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;START RULE;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;----------------------------------------------------------------------;
+[(define "brouhaha_main" (fixedparam []) body)
+ -->
+ (eval body [] (halt))]
+
+(tick ?(do-tick [] call) [call])
+(tick ?(do-tick [x] call) [call x])
+(tick ?(do-tick [x y] call) [call x y])
+(tick ?(do-tick [x y _] call) [call x y])
+
+
+;----------------------------------------------------------------------;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EVAL CASES;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;----------------------------------------------------------------------;
+;BASE PRIMITIVE TYPES
+[(eval (symbol val) ctx kont)
+ -->
+ (store (f-addr ctx (symbol val)) (symbol-val val))
+ (ret (f-addr ctx (symbol val)) kont)]
+
+[(eval (bool val) ctx kont)
+ -->
+ (store (f-addr ctx (bool val)) (bool-val val))
+ (ret (f-addr ctx (bool val)) kont)]
+
+[(eval (int val) ctx kont)
+ -->
+ (store (f-addr ctx (int val)) (int-val val))
+ (ret (f-addr ctx (int val)) kont)]
+
+[(eval (string val) ctx kont)
+ -->
+ (store (f-addr ctx (string val)) (string-val val))
+ (ret (f-addr ctx (string val)) kont)]
+
+[(eval (state val) ctx kont)
+ -->
+ (store (f-addr ctx (state val)) (state-val val))
+ (ret (f-addr ctx (state val)) kont)]
+
+;FUNCTION AND VARIABLE REFERENCES
+[(eval (ref x) ctx kont)
+ -->
+ (ret (f-addr ctx x) kont)]
+
+;LAMBDA AND FUNC
+[(eval e ctx kont)
+ (= e (lambda _ _))
+ -->
+ (store (f-addr ctx e) (clo e ctx))
+ (ret (f-addr ctx e) kont)]
+        
+;APP AND APPLY
+[(eval call ctx kont)
+ (= call (app ef [eas ...]))
+ -->
+ (eval ef ctx (appk call [] eas ctx kont))]
+
+[(eval call ctx kont)
+ (= call (appl ef ea))
+ -->
+ (eval ef ctx (applak call ea ctx kont))]
+
+;IF CASE
+[(eval (if guard tExp fExp) ctx kont)
+ -->
+ (eval guard ctx (if-k tExp fExp ctx kont))]
+
+;LET CASE
+[(eval call ctx kont)
+ (= call (let [(binding lhs rhs) bind-rest ...] body))
+ -->
+ (eval rhs ctx (letk call body [lhs] [] bind-rest ctx kont))]
+
+;---------------------------------------------------------------------;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;RET CASES;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;---------------------------------------------------------------------;
+;LAMBDA AND FUNC
+[(ret a (appk call [as ...] [ea0 ea-rest ...] ctx kont))
+ -->
+ (eval ea0 ctx (appk call [as ... a] [ea-rest ...] ctx kont))]
+
+[(ret a (appk call [af as ...] [] ctx kont))
+ (store af vf)
+ -->
+ (apply vf (fixedarg [as ... a]) ctx kont call)]
+
+[(ret af (appk call [] [] ctx kont))
+ (store af vf)
+ -->
+ (apply vf (fixedarg []) ctx kont call)]
+
+[(ret af (applak call ea ctx kont))
+ -->
+ (eval ea ctx (applfk call af ctx kont))]
+
+[(ret a (applfk call af ctx kont))
+ (store af vf)
+ -->
+ (apply vf (vararg a) ctx kont call)]
+
+[(ret a (k-addr eb))
+ -->
+ (ret a {store (k-addr eb)})]
+
+;IF CASES
+[(ret ga (if-k tExp fExp ctx kont))
+ (store ga (bool "t"))
+ --> 
+ (eval tExp ctx kont)]
+
+[(ret ga (if-k tExp fExp ctx kont))
+ (store ga (bool "f"))
+ --> 
+ (eval fExp ctx kont)]
+
+[(ret (s-addr _) (if-k tExp fExp ctx kont))
+ --> 
+ (eval tExp ctx kont)
+ (eval fExp ctx kont)]
+
+;LET CASE
+[(ret a (letk call body [xs ...] [as ...] [(binding lhs rhs) bind-rest ...] ctx kont))
+ -->
+ (eval rhs ctx (letk call body [xs ... lhs] [as ... a] bind-rest ctx kont))]
+
+[(ret a (letk call body [xs ...] [as ...] [] ctxlet kont))
+ -->
+ (= ctxtick {tick !(do-tick ctxlet call)})
+ (store (k-addr body) kont)
+ (do-fixed-prop-all ctxlet xs [as ... a])
+ (eval body ctxtick (k-addr body))
+ 
+ [(free y body)
+  -->
+  (store (f-addr ctxtick y) {store (f-addr ctxlet y)})
+  ; (store-flow (f-addr ctxtick y) (f-addr ctxlam y))
+  ]]
+
+
+
+
+;---------------------------------------------------------------------;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;APPLY CASES;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;---------------------------------------------------------------------;
+;DEFINE --> CLOSURE
+[(apply (define fname params body) args ctx kont call)
+ --> 
+ (apply (clo (lambda params body) []) args ctx kont call)]  
+
+;DEFINE-PRIM HANDLING (NOT SPECIALIZED)
+[(apply (define-prim fname _) _ _ kont _)
+ (~ specialized-prim fname)
+ -->
+ (store (s-addr fname) (state fname))
+ (ret (s-addr fname) kont)]
+
+;  [(= e (apply (define-prim fname _) args _ kont _))
+;  (~ specialized-prim fname)
+;  -->
+;  (store (s-addr e) (state e))
+;  (ret (s-addr e) kont)]
+
+
+;SPECIALIZED PRIMS
+(specialized-prim "cons")
+  [(= e (apply (define-prim "cons" _) (fixedarg [a0 a1]) ctx kont _))
+  (store a1 (list-of-vals as))
+  -->
+  (store (f-addr ctx e) (list-of-vals [a0 as ...]))
+  (ret (f-addr ctx e) kont)]
+
+  [(= e (apply (define-prim "cons" _) (fixedarg [a0 a1]) ctx kont _))
+  (store a1 val)
+  (non-list-value val)
+  -->
+  (store (f-addr ctx e) (list-of-vals [a0 a1]))
+  (ret (f-addr ctx e) kont)]
+
+  ;VARIADIC
+  [(= e (apply (define-prim "cons" _) (vararg a) ctx kont call))
+  (store a (list-of-vals as))
+  --> 
+  (do-store-addr-union (f-addr ctx e) as [])
+  (ret (f-addr ctx e) kont)]
+
+  ;When the next address points to a list-of-vals
+  [(do-store-addr-union addr [a as ...] [union-as ...])
+  (store a (list-of-vals under-as))
+  -->
+  (do-store-addr-union addr as [a under-as ... union-as ...])]
+
+  ;When the next address points to a single addr
+  [(do-store-addr-union addr [a as ...] [union-as ...])
+  (store a val)
+  (non-list-value val)
+  -->
+  (do-store-addr-union addr as [a union-as])]
+ 
+  [(do-store-addr-union addr [] [union-as ...])
+  -->
+  (store addr (list-of-vals union-as))]
+
+
+(specialized-prim "null?")
+  [(= e (apply (define-prim "null?" _) (fixedarg [a]) ctx kont _))
+   (store a (list-of-vals as))
+   (= as [])
+   -->
+   (store (f-addr ctx e) (bool "t"))
+   (ret (f-addr ctx e) kont)]
+
+  [(= e (apply (define-prim "null?" _) (fixedarg [a]) ctx kont _))
+   (store a (list-of-vals [a0 as ...]))
+   -->
+   (store (f-addr ctx e) (bool "t"))
+   (store (f-addr ctx e) (bool "f"))
+   (ret (f-addr ctx e) kont)]
+
+
+(specialized-prim "car")
+ [(= e (apply (define-prim "car" _) (fixedarg [a]) ctx kont _))
+  (store a (list-of-vals [_ ... ai _ ...]))
+  -->
+  (store (f-addr ctx e) ai)
+  (ret (f-addr ctx e) kont)]
+
+(specialized-prim "cdr")
+ [(= e (apply (define-prim "cdr" _) (fixedarg [a]) ctx kont _))
+  (store a (list-of-vals as))
+   -->
+  (store (f-addr ctx e) (list-of-vals as))
+  (ret (f-addr ctx e) kont)]
+
+(specialized-prim "list")
+ [(= e (apply (define-prim "list" _) (fixedarg as) ctx kont _))
+  -->
+  (store (f-addr ctx e) (list-of-vals as))
+  (ret (f-addr ctx e) kont)]
+
+ [(= e (apply (define-prim "list" _) (vararg a) ctx kont _))
+  (store a (list-of-vals as))
+  -->
+  (store (f-addr ctx e) (list-of-vals as))
+  (ret (f-addr ctx e) kont)]
+
+;; ASK ABOUT DO-TICK FOR PRIMS
+
+
+;FIXED ARG
+[(apply (clo (lambda (fixedparam [xs ...]) eb) ctxlam) (fixedarg [as ...]) ctxcall kont call)
+ --> 
+ (store (k-addr eb) kont)
+ (= ctxtick {tick !(do-tick ctxcall call)})
+ (do-fixed-prop-all ctxtick xs as)
+ (eval eb ctxtick (k-addr eb))
+ [(free y eb)
+  -->
+  (store (f-addr ctxtick y) {store (f-addr ctxlam y)})
+  (store-flow (f-addr ctxtick y) (f-addr ctxlam y))
+  ]]
+
+[(apply (clo (lambda (varparam x) eb) ctxlam) (fixedarg [as ...]) ctxcall kont call)
+ --> 
+ (store (k-addr eb) kont)
+ (= ctxtick {tick !(do-tick ctxcall call)})     
+ (store (f-addr ctxtick x) (list-of-vals as))
+ (eval eb ctxtick (k-addr eb))
+ [(free y eb) 
+  -->
+  (store (f-addr ctxtick y) {store (f-addr ctxlam y)})
+  (store-flow (f-addr ctxtick y) (f-addr ctxlam y))]]
+
+;VARIADIC ARG
+[(apply (clo (lambda (varparam x) eb) ctxlam) (vararg a) ctxcall kont call)
+ --> 
+ (store (k-addr eb) kont)
+ (= ctxtick {tick !(do-tick ctxcall call)})
+ (store-flow a (f-addr ctxtick x))
+ ;(store (f-addr ctxtick x) {store a})
+ (eval eb ctxtick (k-addr eb))
+ [(free y eb)
+  -->
+  (store (f-addr ctxtick y) {store (f-addr ctxlam y)})
+  (store-flow (f-addr ctxtick y) (f-addr ctxlam y))]]
+
+[(apply (clo (lambda (fixedparam [xs ...]) eb) ctxlam) (vararg a) ctxcall kont call)
+ (store a (list-of-vals as))
+ -->
+ (store (k-addr eb) kont)
+ (= ctxtick {tick !(do-tick ctxcall call)})
+ (do-var-prop-all ctxtick xs as)
+ (eval eb ctxtick (k-addr eb))
+ [(free y eb)
+  -->
+  (store-flow (f-addr ctxtick y) (f-addr ctxlam y))]]
+
+
+
+
+
+;----------------------------------------------------------------------;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;HELPER FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;----------------------------------------------------------------------;
+;DO-VIXED-PROP-ALL
+[(do-fixed-prop-all ctxtick [x x-rest ...] [a a-rest ...])
+ -->
+ (do-fixed-prop-all ctxtick x-rest a-rest)
+;  (store (f-addr ctxtick x) {store a})
+ (store-flow a (f-addr ctxtick x))]
+
+
+;DO-VAR-PROP-ALL
+[(do-var-prop-all ctxtick [x x-rest ...] [a a-rest ...])
+ -->
+ (do-var-prop-all-h ctxtick [x x-rest ...] [a a-rest ...] [a a-rest ...])]
+
+[(do-var-prop-all-h ctxtick [x x-rest ...] [a a-rest ...] a-old)
+ -->
+ (do-var-prop-all-h ctxtick [x x-rest ...] a-rest a-old)
+ (store-flow a (f-addr ctxtick x))]
+
+
+[(do-var-prop-all-h ctxtick [x x-rest ...] [] a-old)
+ -->
+ (do-var-prop-all-h ctxtick x-rest a-old a-old)]
+
+;STORE-FLOW
+[(store a v)
+ (store-flow a a1)
+ -->
+ (store a1 v)]
+
+;DETECTING ANSWER
+(answer ?(ret (s-addr a) (halt)) {store (s-addr a)})
+(answer ?(ret (f-addr _ a) (halt)) {store (f-addr _ a)})
+
+
+;----------------------------------------------------------------------;
+;;;;;;;;;;;;;;;;;;;;;;;;;;Inlinable Callsite Detection;;;;;;;;;;;;;;;;;;
+;----------------------------------------------------------------------;
+
+; IS DEFINE-PRIM
+; [(eval exp _ _)
+; (= exp (app (ref func) _))
+; (store (f-addr _ func) (define-prim dp_func _))
+; (count store (f-addr _ func) (define-prim dp_func _) cnt)
+;  -->
+; (inlinable-call exp func dp_func cnt)]
+
+; [(inlinable-call exp func dp_func cnt)
+; -->
+; (is-define-prim exp func dp_func {maximum inlinable-call exp func dp_func} {prim-count dp_func})]
+
+
+; ; Combinator
+; [(eval exp _ _)
+; (= exp (app lam _))
+; (= lam (lambda var body))
+; (~ store (f-addr _ x) (define-prim x _))
+; (free x lam)
+;  -->
+; (is-combinator exp lam x)]
+
+;GENERATING CALL-SETS FOR FUNCTIONS
+[(= e (app ef [eas ...]))
+(apply vf _ _ _ e)
+-->
+(fun-at-call e vf)]
+
+[(fun-at-call e vf)
+(count fun-at-call e _ cnt)
+-->
+(fun-at-call-count e cnt)]
+
+[(free var exp)
+-->
+(freevars exp var)]
+
