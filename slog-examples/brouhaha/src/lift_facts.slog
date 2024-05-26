@@ -8,5 +8,59 @@
           ;           (app (ref "ack")
           ;                [(app (ref "-") [(ref "m") (int "1")])
           ;                 (app (ref "ack") [(ref "m") (app (ref "-") [(ref "n") (int "1")])])])))))
-[(flat-store id fun-name flat-define-id) (flat-define flat-define-id fun-name params-id body-id)
-  --> (store (f-addr [] fun-name) params-id body-id)] 
+; [(dummy-fact val) (= val "lol") --> (it-works val)]
+[(flat-ref id "datum" val) --> (ref-holder id (ref val))]
+[(flat-int id "datum" val) --> (int-holder id (int val))]
+; [(flat-list-1 id "flat-ref" flat-ref-id) (ref-holder flat-ref-id lifted-ref)
+;   --> (list-holder id [lifted-ref])]
+; [(flat-list-1 id rel-1-str rel-1-id) --> (list-holder id [rel-1-str rel-1-id])]
+; [(flat-list-2 id rel-1-str rel-1-id rel-2-str rel-2-id) --> (list-holder id [rel-1-str rel-1-id rel-2-str rel-2-id])]
+; [(flat-list-3 id rel-1-str rel-1-id rel-2-str rel-2-id rel-3-str rel-3-id) 
+;  --> (list-holder id [rel-1-str rel-1-id rel-2-str rel-2-id rel-3-str rel-3-id])]
+
+;; dumb rules
+[(flat-list-3 id "flat-app" flat-app1-id "flat-app" flat-app2-id "flat-ref" flat-ref1-id)
+ (app-holder flat-app1-id lifted-app1-fact)
+ (app-holder flat-app2-id lifted-app2-fact)
+ (ref-holder flat-ref1-id lifted-ref1-fact)
+   --> (list-holder id [lifted-app1-fact lifted-app2-fact lifted-ref1-fact])]
+
+[(flat-list-3 id "flat-ref" flat-ref1-id "flat-app" flat-app1-id "flat-app" flat-app2-id)
+ (ref-holder flat-ref1-id lifted-ref1-fact)
+ (app-holder flat-app1-id lifted-app1-fact)
+ (app-holder flat-app2-id lifted-app2-fact)
+   --> (list-holder id [lifted-ref1-fact lifted-app1-fact lifted-app2-fact])]
+
+
+[(flat-list-3 id "flat-ref" flat-ref1-id "flat-ref" flat-ref2-id "flat-app" flat-app1-id)
+ (ref-holder flat-ref1-id lifted-ref1-fact)
+ (ref-holder flat-ref2-id lifted-ref2-fact)
+ (app-holder flat-app1-id lifted-app1-fact)
+   --> (list-holder id [lifted-ref1-fact lifted-ref2-fact lifted-app1-fact])]
+
+[(flat-list-3 id "datum" val1 "datum" val2 "datum" val3)
+   --> (list-holder id [val1 val2 val3])]
+
+[(flat-list-2 id "flat-ref" flat-ref1-id "flat-app" flat-app1-id)
+ (ref-holder flat-ref1-id lifted-ref1-fact)
+ (app-holder flat-app1-id lifted-app1-fact)
+ --> (list-holder id [lifted-ref1-fact lifted-app1-fact])]
+
+[(flat-list-2 id "flat-app" flat-app1-id "flat-app" flat-app2-id)
+ (app-holder flat-app1-id lifted-app1-fact)
+ (app-holder flat-app2-id lifted-app2-fact)
+ --> (list-holder id [lifted-app1-fact lifted-app2-fact])]
+
+
+[(flat-list-2 id "flat-app" flat-app1-id "flat-app" flat-app2-id)
+ (app-holder flat-app1-id lifted-app1-fact)
+ (app-holder flat-app2-id lifted-app2-fact)
+ --> (list-holder id [lifted-app1-fact lifted-app2-fact])]
+
+[(flat-list-2 id "datum" val1 "datum" val2)
+ --> (list-holder id [val1 val2])]
+
+[(flat-app id "flat-ref" flat-ref-id flat-list-str flat-list-id)
+ (ref-holder flat-ref-id lifted-ref-fact)
+ (list-holder flat-list-id lifted-slog-list)
+ --> (app-holder id (app lifted-ref-fact lifted-slog-list))]
