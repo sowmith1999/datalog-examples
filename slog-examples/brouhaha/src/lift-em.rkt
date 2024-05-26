@@ -3,6 +3,7 @@
 ; yee another empty file
 (require print-debug/print-dbg)
 (define to-save-path "/home/sowmith/projects/datalog-examples/slog-examples/brouhaha/input/")
+(define rules-path "/home/sowmith/projects/datalog-examples/slog-examples/brouhaha/src/rules.slog")
 
 (define input-list
   '(
@@ -194,7 +195,7 @@
   (match item 
     [`(,(? symbol? rel) ,id ,rst ...)
       #:when (and is-list (= (string-length item-str) 1))
-      (write-a-rule is-list (cddr item) (string-append item-str " " (symbol->string rel) (symbol->string id) " [")) 
+      (write-a-rule is-list (cddr item) (string-append item-str " " (symbol->string rel) " " (symbol->string id) " [")) 
       ]
     [`(,(? symbol? rel) ,rst ...)
       (write-a-rule is-list (cdr item) (string-append item-str (symbol->string rel) " "))
@@ -202,13 +203,17 @@
     [`(,(? string? str) ,rst ...)
       (write-a-rule is-list (cdr item) (string-append item-str " " (string-append "\"" str "\"") " "))
     ]
+    [`(,(? list? slog-list) ,rst ...)
+      #:when is-list
+      (write-a-rule is-list slog-list item-str)
+    ]
     [`(,(? list? sub-rel) ,rst ...)
       (define sub-rel-str (write-a-rule #f sub-rel))
       (write-a-rule is-list (cdr item) (string-append item-str sub-rel-str))
     ])))
 
 (define (write-rules rule-set)
-  (define file-path (string-append to-save-path "rules.slog"))
+  (define file-path rules-path)
   (define file-out (open-output-file file-path #:exists 'replace)) 
     (for ([rule (set->list rule-set)])
       (match rule
@@ -230,54 +235,6 @@
   (foldl (lambda (fact acc) (caddr (gen-process fact acc)))
          rel_map input-list))
 
-(define (make-main-body-list-old rel_name fact arity [head (list `(,(string->symbol rel_name)) `())] [body (list 'list-holder)])
-  (if (= arity 0)
-      `(,head ,body)
-      (if (= 1 (length (car head)))
-          (make-main-body-list-old rel_name (cdr fact) arity
-                               (p-dbg (list (append (car head) `(id)) `())) (append body `(id)))
-          (let*
-              ((rel_string (car fact))
-               (rel_id_name (string->symbol (string-append rel_string (number->string arity) (if (eq? rel_string "datum") "-val" "-id"))))
-               (new_head (p-dbg (list (append (car head) `(,rel_string ,rel_id_name)) (cadr head))))
-               (lifted_fact_name (if (eq? "datum" rel_string) rel_id_name (string->symbol (string-append "lifted-" rel_string (number->string arity) "-fact"))))
-               (new_body (append body `(,lifted_fact_name)))
-               (updated-new-head (p-dbg (if (eq? "datum" rel_string) new_head 
-                                          (list (car new_head) (append (cadr new_head) 
-                                                                       (list (string->symbol 
-                                                                                     (string-append rel_string "-holder")) 
-                                                                                   rel_id_name lifted_fact_name)))))))
-
-            (make-main-body-list-old rel_name (cdr (cdr fact)) (- arity 1) updated-new-head new_body)
-            )
-          )
-      )
-  )
-
-;; [(flat-list-3 id "flat-ref" flat-ref1-id "flat-ref" flat-ref2-id "flat-app" flat-app1-id)
-;;  (ref-holder flat-ref1-id lifted-ref1-fact)
-;;  (ref-holder flat-ref2-id lifted-ref2-fact)
-;;  (app-holder flat-app1-id lifted-app1-fact)
-;;    --> (list-holder id [lifted-ref1-fact lifted-ref2-fact lifted-app1-fact])]
-
-
-(define (make-main-body-list rel_name fact arity [head `()] [body `()])
-  (match fact
-    [`(,(? symbol? id) ,rst ...)
-     (define main-body-rule `(,(string->symbol rel_name) id))
-     (define rel_og (substring rel_name 4 (string-length rel_name))) 
-     (define head-rule `(,(string->symbol rel_og "-holder") id))
-     (p-dbg (make-main-body-list rel_name (cdr fact) arity (p-dbg head-rule) (p-dbg (cons main-body-rule body))))
-      ]
-    [`("datum" ,val ,rst ...)
-      (define val-sym (p-dbg (str->sym (string-append "datum" (number->string arity) "-val"))))
-      (define updated-main-body (p-dbg (append (car body) `("datum" ,val-sym))))
-      (define updated-body (p-dbg (append `(
-      ]
-    )
-  )
-
-
 (define (make-main-body-rel rel_name fact arity [head `()] [body `()])
   (define (str-sym . vals)
     (string->symbol (apply string-append vals)))
@@ -286,8 +243,12 @@
   (match fact
     [`(,(? symbol? id) ,rst ...)
      (define main-body-rule `(,(str->sym rel_name) id))
-     (define rel_og (cadr (string-split rel_name "-")))
-     (define head-rule `(,(str-sym rel_og "-holder") id ,(list (str->sym rel_og))))
+     (define rel_og (substring rel_name 5 (string-length rel_name)))
+     ;; (displayln `(,rel_name ,rel_og))
+     (define head-rule 
+     (if (equal? (substring rel_og 0 (min 4 (string-length rel_og))) "list")
+       `(,(str-sym rel_og "-holder") id ())
+       `(,(str-sym rel_og "-holder") id (,(str->sym rel_og)))))
      (p-dbg (make-main-body-rel rel_name (cdr fact) arity (p-dbg head-rule) (cons main-body-rule body)))
      ]
     [`("datum" ,val ,rst ...)
@@ -298,9 +259,10 @@
      (make-main-body-rel rel_name (cddr fact) (- arity 1) (p-dbg updated-head) (p-dbg updated-body))
      ]
     [`(,(? string? rel_str) ,rel-id ,rst ...)
-     (define cur_rel_og (cadr (string-split rel_str "-")))
+     (define cur_rel_og (substring rel_str 5 (string-length rel_str)))
      (define rel-sym (str->sym (string-append rel_str "-" (num->str arity) "-id")))
      (define holder-sym (str->sym (string-append cur_rel_og "-holder")))
+     (displayln `(,cur_rel_og ,holder-sym))
      (define lifted-sym (str->sym (string-append "lifted-" cur_rel_og "-" (num->str arity) "-fact")))
      (define new-body-item `(,holder-sym ,rel-sym ,lifted-sym))
      (define updated-main-body (append (car body) `(,rel_str ,rel-sym)))
@@ -320,7 +282,7 @@
         (let*
             ((fact (car fact-list))
              (arity (/ (- (length fact) 1) 2))
-             (rule (if is-list (make-main-body-list-old rel_name fact arity)
+             (rule (if is-list (make-main-body-rel rel_name fact arity)
                        (make-main-body-rel rel_name fact arity))))
           (lifting-rules-for-* is-list (cdr fact-list) rel_name (set-add rule-set rule)))))
   (foldl (lambda (rel_name acc)
@@ -333,7 +295,7 @@
 (define test-input-list
   '((app (ref "=") [(int "0")(ref "n") "1"])))
 
-(define rel_map (process-list-of-facts test-input-list))
+(define rel_map (process-list-of-facts input-list))
 ;; (define rel_map (process-list-of-facts input-list))
 (pretty-print rel_map)
 ;; (write-relation rel_map)
