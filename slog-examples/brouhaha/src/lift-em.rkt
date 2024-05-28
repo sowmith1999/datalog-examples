@@ -2,8 +2,8 @@
 
 ; yee another empty file
 (require print-debug/print-dbg)
-(define to-save-path "/home/sowmith/projects/datalog-examples/slog-examples/brouhaha/input/")
-(define rules-path "/home/sowmith/projects/datalog-examples/slog-examples/brouhaha/src/rules.slog")
+(define to-save-path "/home/sowmith/projects/datalog-examples/slog-examples/brouhaha/benchmark_pnpoly/input/")
+(define rules-path "/home/sowmith/projects/datalog-examples/slog-examples/brouhaha/benchmark_pnpoly/fact_rules.slog")
 
 (define input-list
   '(
@@ -122,9 +122,18 @@
 (store (f-addr [] "append") (define "append" (varparam "vargs") (let [ (binding "l1" (app (ref "car") [(ref "vargs")])) (binding "vargs8779" (app (ref "cdr") [(ref "vargs")]))] (let [ (binding "l2" (app (ref "car") [(ref "vargs8779")])) (binding "vargs8780" (app (ref "cdr") [(ref "vargs8779")]))] (let [ (binding "lsts" (ref "vargs8780"))] (if (app (ref "null?") [(ref "lsts")]) (app (ref "append1") [(ref "l1")(ref "l2")]) (app (ref "foldr") [(ref "append1")(app (ref "list") [])(app (ref "append1") [(app (ref "list") [(ref "l1")(ref "l2")])(ref "lsts")])])))))))
 (store (f-addr [] "list-set") (define "list-set" (fixedparam ["lst" "index" "value" ]) (if (app (ref "=") [(ref "index")(int "0")]) (app (ref "cons") [(ref "value")(app (ref "cdr") [(ref "lst")])]) (app (ref "cons") [(app (ref "car") [(ref "lst")])(app (ref "list-set") [(app (ref "cdr") [(ref "lst")])(app (ref "-") [(ref "index")(int "1")])(ref "value")])]))))
 (store (f-addr [] "flatten") (define "flatten" (fixedparam ["lst" ]) (if (app (ref "null?") [(ref "lst")]) (app (ref "list") []) (if (app (ref "pair?") [(ref "lst")]) (app (ref "append") [(app (ref "flatten") [(app (ref "car") [(ref "lst")])])(app (ref "flatten") [(app (ref "cdr") [(ref "lst")])])]) (app (ref "list") [(ref "lst")])))))
-(store (f-addr [] "ack") (define "ack" (fixedparam ["m" "n" ]) (if (app (ref "=") [(ref "m")(int "0")]) (app (ref "+") [(ref "n")(int "1")]) (if (app (ref "=") [(ref "n")(int "0")]) (app (ref "ack") [(app (ref "-") [(ref "m")(int "1")])(int "1")]) (app (ref "ack") [(app (ref "-") [(ref "m")(int "1")])(app (ref "ack") [(ref "m")(app (ref "-") [(ref "n")(int "1")])])])))))
-(store (f-addr [] "brouhaha_main") (define "brouhaha_main" (fixedparam []) (app (ref "ack") [(int "3")(int "12")])))
-    ))
+(store (f-addr [] "ll") (define "ll" (fixedparam []) (app (ref "list") [(app (ref "list") [(int "0")(int "1")(int "2")])(app (ref "list") [(int "3")(int "4")(int "5")])(app (ref "list") [(int "6")(int "7")(int "8")])])))
+(store (f-addr [] "get-element") (define "get-element" (fixedparam ["brd" "i" "j" ]) (app (ref "list-ref") [(app (ref "list-ref") [(ref "brd")(ref "i")])(ref "j")])))
+(store (f-addr [] "generate-pairs") (define "generate-pairs" (fixedparam ["rr" "cc" ]) (app (ref "foldr") [(lambda (fixedparam ["r""acc"]) (app (ref "append") [(app (ref "map") [(lambda (fixedparam ["c"]) (app (ref "list") [(ref "r")(ref "c")]))(ref "cc")])(ref "acc")]))(app (ref "list") [])(ref "rr")])))
+(store (f-addr [] "access-elements") (define "access-elements" (fixedparam ["rr" "cc" "brd" ]) (app (ref "map") [(lambda (fixedparam ["pair"]) (app (ref "get-element") [(ref "brd")(app (ref "car") [(ref "pair")])(app (ref "car") [(app (ref "cdr") [(ref "pair")])])]))(app (ref "generate-pairs") [(ref "rr")(ref "cc")])])))
+(store (f-addr [] "subgrid") (define "subgrid" (fixedparam ["brd" "r" "c" ]) (let [ (binding "rr" (app (ref "flatten") [(app (ref "filter") [(lambda (fixedparam ["x"]) (app (ref "member") [(ref "r")(ref "x")]))(app (ref "ll") [])])])) (binding "cc" (app (ref "flatten") [(app (ref "filter") [(lambda (fixedparam ["x"]) (app (ref "member") [(ref "c")(ref "x")]))(app (ref "ll") [])])]))] (app (ref "access-elements") [(ref "rr")(ref "cc")(ref "brd")]))))
+(store (f-addr [] "newbd") (define "newbd" (fixedparam ["brd" "r" "c" "i" ]) (app (ref "list-set") [(ref "brd")(ref "r")(app (ref "list-set") [(app (ref "list-ref") [(ref "brd")(ref "r")])(ref "c")(ref "i")])])))
+(store (f-addr [] "solve-board") (define "solve-board" (fixedparam ["brd" "r" "c" "lst" "result" ]) (if (app (ref "equal?") [(ref "result")(symbol "solved")]) (ref "result") (if (app (ref "null?") [(ref "lst")]) (ref "result") (if (if (if (app (ref "member") [(app (ref "car") [(ref "lst")])(app (ref "list-ref") [(ref "brd")(ref "r")])]) (bool "f") (bool "t")) (if (if (app (ref "member") [(app (ref "car") [(ref "lst")])(app (ref "map") [(lambda (fixedparam ["x"]) (app (ref "list-ref") [(ref "x")(ref "c")]))(ref "brd")])]) (bool "f") (bool "t")) (if (app (ref "member") [(app (ref "car") [(ref "lst")])(app (ref "subgrid") [(ref "brd")(ref "r")(ref "c")])]) (bool "f") (bool "t")) (bool "f")) (bool "f")) (app (ref "solve-board") [(ref "brd")(ref "r")(ref "c")(app (ref "cdr") [(ref "lst")])(let [ (binding "newbrd" (app (ref "newbd") [(ref "brd")(ref "r")(ref "c")(app (ref "car") [(ref "lst")])]))] (if (app (ref "<") [(app (ref "+") [(int "1")(ref "c")])(int "9")]) (app (ref "SolveSudoku") [(ref "newbrd")(ref "r")(app (ref "+") [(int "1")(ref "c")])]) (if (app (ref "<") [(app (ref "+") [(int "1")(ref "r")])(int "9")]) (app (ref "SolveSudoku") [(ref "newbrd")(app (ref "+") [(int "1")(ref "r")])(int "0")]) (symbol "solved"))))]) (app (ref "solve-board") [(ref "brd")(ref "r")(ref "c")(app (ref "cdr") [(ref "lst")])(ref "result")]))))))
+(store (f-addr [] "SolveSudoku") (define "SolveSudoku" (fixedparam ["brd" "r" "c" ]) (if (app (ref "=") [(int "0")(app (ref "list-ref") [(app (ref "list-ref") [(ref "brd")(ref "r")])(ref "c")])]) (app (ref "solve-board") [(ref "brd")(ref "r")(ref "c")(app (ref "list") [(int "1")(int "2")(int "3")(int "4")(int "5")(int "6")(int "7")(int "8")(int "9")])(symbol "unsolved")]) (if (app (ref "<") [(app (ref "+") [(int "1")(ref "c")])(int "9")]) (app (ref "SolveSudoku") [(ref "brd")(ref "r")(app (ref "+") [(int "1")(ref "c")])]) (if (app (ref "<") [(app (ref "+") [(int "1")(ref "r")])(int "9")]) (app (ref "SolveSudoku") [(ref "brd")(app (ref "+") [(int "1")(ref "r")])(int "0")]) (symbol "solved"))))))
+(store (f-addr [] "board") (define "board" (fixedparam []) (app (ref "list") [(app (ref "list") [(int "5")(int "3")(int "0")(int "0")(int "7")(int "0")(int "0")(int "0")(int "0")])(app (ref "list") [(int "6")(int "0")(int "0")(int "1")(int "9")(int "5")(int "0")(int "0")(int "0")])(app (ref "list") [(int "0")(int "9")(int "8")(int "0")(int "0")(int "0")(int "0")(int "6")(int "0")])(app (ref "list") [(int "8")(int "0")(int "0")(int "0")(int "6")(int "0")(int "0")(int "0")(int "3")])(app (ref "list") [(int "4")(int "0")(int "0")(int "8")(int "0")(int "3")(int "0")(int "0")(int "1")])(app (ref "list") [(int "7")(int "0")(int "0")(int "0")(int "2")(int "0")(int "0")(int "0")(int "6")])(app (ref "list") [(int "0")(int "6")(int "0")(int "0")(int "0")(int "0")(int "2")(int "8")(int "0")])(app (ref "list") [(int "0")(int "0")(int "0")(int "4")(int "1")(int "9")(int "0")(int "0")(int "5")])(app (ref "list") [(int "0")(int "0")(int "0")(int "0")(int "8")(int "0")(int "0")(int "7")(int "9")])])))
+(store (f-addr [] "brouhaha_main") (define "brouhaha_main" (fixedparam []) (app (ref "SolveSudoku") [(app (ref "board") [])(int "0")(int "0")])))
+
+))
 
 ;; There can be three things in the fact
 ;; 1) another nested fact
@@ -244,7 +253,6 @@
     [`(,(? symbol? id) ,rst ...)
      (define main-body-rule `(,(str->sym rel_name) id))
      (define rel_og (substring rel_name 5 (string-length rel_name)))
-     ;; (displayln `(,rel_name ,rel_og))
      (define head-rule 
      (if (equal? (substring rel_og 0 (min 4 (string-length rel_og))) "list")
        `(,(str-sym rel_og "-holder") id ())
@@ -262,7 +270,6 @@
      (define cur_rel_og (substring rel_str 5 (string-length rel_str)))
      (define rel-sym (str->sym (string-append rel_str "-" (num->str arity) "-id")))
      (define holder-sym (str->sym (string-append cur_rel_og "-holder")))
-     (displayln `(,cur_rel_og ,holder-sym))
      (define lifted-sym (str->sym (string-append "lifted-" cur_rel_og "-" (num->str arity) "-fact")))
      (define new-body-item `(,holder-sym ,rel-sym ,lifted-sym))
      (define updated-main-body (append (car body) `(,rel_str ,rel-sym)))
@@ -292,15 +299,29 @@
              (set-union acc (lifting-rules-for-* is-list fact-list rel_name))))
          (set) (hash-keys rel_map)))
 
+(define souffle-rule-path "/home/sowmith/projects/datalog-examples/slog-examples/brouhaha/souffle_rules/defines.dl")
+
+(define (write-souffle-defines rel_map)
+  (define file-out (open-output-file souffle-rule-path #:exists 'replace))
+  (define keys (hash-keys rel_map))
+  (define (get-cols item-list [count (length item-list)] [str ""])
+    (if (null? item-list)
+      str
+      (get-cols (cdr item-list) (- count 1) (string-append str ", field_" (number->string count) ":symbol"))))
+   
+  (define (write-define rel_name_og fact)
+    (define rel_name (string-replace rel_name_og "-" "_"))
+    (fprintf file-out (format ".decl ~a (id:number~a)\n" rel_name (get-cols (cdr fact))))
+    (fprintf file-out (format ".input ~a\n" rel_name))
+    (fprintf file-out (format ".output ~a\n" rel_name)))
+  (for ([rel_name keys])
+    (write-define rel_name (car (hash-ref rel_map rel_name)))))
+
 (define test-input-list
   '((app (ref "=") [(int "0")(ref "n") "1"])))
 
 (define rel_map (process-list-of-facts input-list))
-;; (define rel_map (process-list-of-facts input-list))
-(pretty-print rel_map)
-;; (write-relation rel_map)
-;; (pretty-print (set-count (lifting-rules rel_map)))
 (define rule-set (lifting-rules rel_map))
+;; (write-relation rel_map)
 ;; (write-rules rule-set)
-(pretty-print rule-set)
-(write-rules rule-set)
+(write-souffle-defines rel_map)

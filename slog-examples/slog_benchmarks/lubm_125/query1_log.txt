@@ -1,0 +1,65 @@
+JIT Compiling .slog to .slogc
+parsing + compilation took 4 ms.
+ir-small: 
+RULES:
+------------------------------------------------------
+/slog/out/query1.slog 1:
+[((rel-arity $rule1-inter-body 2 db) $const $id) <--
+  (= $_1 ((rel-arity takescourse 2 db) student $const))
+  (= $id ((rel-arity graduatestudent 1 db) student))]
+[((rel-arity result_query 1 db) $id) <--
+  (= $_6 ((rel-arity $rule1-inter-body 2 db) $const $id))
+  (= $_3 ((rel-arity = 2 comp) $const http://www.Department0.University0.edu/GraduateCourse0))]
+
+
+All rules: 4, arules: 2, copy rules: 0, join rules: 2, facts: 0
+rels: 4, sccs: 4
+[wrote C++ driver and data to "/slog/out/query1.cpp"]
+
+Time taken: 8.533593654632568
+Not compiling backend.
+Calling tsv->bin
+Time taken: 38.66215252876282
+Running slog executable.
+['/usr/bin/mpirun', '-n', '1', '/slog/backend/build/slog', '/slog/out/query1.slogc', '/slog/out/input-data', '/slog/out']
+0 >>>>>>>>>>  acopy rel__takescourse__2__1 rel__takescourse__2__1__2
+0 >>>>>>>>>>  join rel___dollorrule1__inter__body__2__1__2 rel__graduatestudent__1__1 rel__takescourse__2__1
+0 >>>>>>>>>>  acopy rel___dollorrule1__inter__body__2__1 rel___dollorrule1__inter__body__2__1__2
+0 >>>>>>>>>>  copy_generate rel__result__query__1__1 rel___dollorrule1__inter__body__2__1
+Input file 260.takescourse.2.table not exists
+Input file 261.$rule1-inter-body.2.table not exists
+259.takescourse.2.table: {2}. (3605783 total facts)
+256.graduatestudent.1.table: {1}. (314796 total facts)
+257.result_query.1.table: {1}. (0 total facts)
+: {2}. (0 total facts)
+: {2}. (0 total facts)
+258.$rule1-inter-body.2.table: {2}. (0 total facts)
+Iteration 0 (sync 1.4402e-05) >> Join: 0.543721 , Comm: 0.0927004 , Newt: 0.856808 , Full: 0.847149 , Intra: 8.55e-07 (0,0,0) total: 2.34043
+<<<<<<<<<<< SCC 0 finish, 1 iteration in total.
+RA OP 0 >>>> 0.54367
+TOTAL STAT >>>>>>>> Join: -nan (Sync: -nan)   , Comm: 0.0927004 , Newt: 0.856808 , Full: 0.847149 , Intra: 8.55e-07
+Iteration 0 (sync 6.158e-06) >> Join: 1.85114 , Comm: 0.0148531 , Newt: 0.92049 , Full: 2.236e-06 , Intra: 0.271789 (0.22722,0.0445654,0) total: 3.05831
+<<<<<<<<<<< SCC 1 finish, 1 iteration in total.
+RA OP 0 >>>> 1.84774
+TOTAL STAT >>>>>>>> Join: -nan (Sync: -nan)   , Comm: 0.0148531 , Newt: 0.92049 , Full: 2.236e-06 , Intra: 0.271789
+Iteration 0 (sync 1.519e-06) >> Join: 0.0443981 , Comm: 0.00524652 , Newt: 0.143908 , Full: 0.125518 , Intra: 1.089e-06 (0,0,0) total: 0.3191
+<<<<<<<<<<< SCC 2 finish, 1 iteration in total.
+RA OP 0 >>>> 0.0443821
+TOTAL STAT >>>>>>>> Join: -nan (Sync: 1.519e-06)   , Comm: 0.00524652 , Newt: 0.143908 , Full: 0.125518 , Intra: 1.089e-06
+Iteration 0 (sync 2.459e-06) >> Join: 0.128816 , Comm: 0.018051 , Newt: 8.241e-06 , Full: 1.223e-06 , Intra: 4.46e-07 (0,0,0) total: 0.146898
+<<<<<<<<<<< SCC 3 finish, 1 iteration in total.
+RA OP 0 >>>> 0.128795
+TOTAL STAT >>>>>>>> Join: 0.128816 (Sync: 2.459e-06)   , Comm: 0.018051 , Newt: 8.241e-06 , Full: 1.223e-06 , Intra: 4.46e-07
+relation : 261 GCed
+259.takescourse.2.table: {2}. (3605783 total facts)
+256.graduatestudent.1.table: {1}. (314796 total facts)
+257.result_query.1.table: {1}. (4 total facts)
+: {2}. (3605783 total facts)
+258.$rule1-inter-body.2.table: {2}. (630356 total facts)
+Total actual facts: 57 MB.
+Total intermediate facts: 64 MB.
+Intermediate overhead ratio: 0.529562
+Running time : 11.083
+
+Time taken: 11.851888179779053
+Build success!

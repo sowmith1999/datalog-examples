@@ -17,15 +17,21 @@
 
 ;; Apply states
 [(apply call (clo (lam x Eb) _) va k c)
--->
+ -->
+  (= c' {tick !(do-tick call c)})
   (eval Eb (kaddr Eb c') c')
   (store (kaddr Eb c') k)
-  (store (addr x c') va)
-  (= c' {tick !(do-tick call c)})]
+  (store (addr x c') va)]
 
 ; Propagate free vars
 [(free y (lam x body))
-(apply call (clo (lam x body) clam) _ _ c)
+ (apply call (clo (lam x body) clam) _ _ c)
   -->
-  (store (addr y {tick !(do-tick call c)})
-  {store (addr y clam)})]
+  (store (addr y {tick !(do-tick call c)}) {store (addr y clam)})]
+
+(eval (app (lam "x" "x") (lam "y" "z")) (halt) [])
+
+(tick ?(do-tick [] call) [call])
+(tick ?(do-tick [x] call) [call x])
+(tick ?(do-tick [x y] call) [call x y])
+(tick ?(do-tick [x y _] call) [call x y])

@@ -1,0 +1,7 @@
+[(result_final gradstu_id univ_id dept_id) <-- 
+ (= gradstu_id (graduatestudent student)) 
+ (= univ_id (university univ)) 
+ (= dept_id (department dept))
+ (memberof student dept)
+ (suborganizationof resrch_grp univ)
+ (undergraduatedegreefrom  student univ)]

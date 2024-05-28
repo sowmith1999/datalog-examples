@@ -1,0 +1,3 @@
+[(result_query (graduatestudent student))
+ <-- (takescourse student "http://www.Department0.University0.edu/GraduateCourse0")
+     (graduatestudent student)] 
