@@ -1,0 +1,125 @@
+.decl flat_binding (id:number, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_binding
+.output flat_binding
+.decl flat_if (id:number, field_6:symbol, field_5:symbol, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_if
+.output flat_if
+.decl flat_varparam (id:number, field_2:symbol, field_1:symbol)
+.input flat_varparam
+.output flat_varparam
+.decl flat_define_prim (id:number, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_define_prim
+.output flat_define_prim
+.decl flat_define (id:number, field_6:symbol, field_5:symbol, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_define
+.output flat_define
+.decl flat_prim_count (id:number, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_prim_count
+.output flat_prim_count
+.decl flat_list_3 (id:number, field_6:symbol, field_5:symbol, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_list_3
+.output flat_list_3
+.decl flat_list_4 (id:number, field_8:symbol, field_7:symbol, field_6:symbol, field_5:symbol, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_list_4
+.output flat_list_4
+.decl flat_list_5 (id:number, field_10:symbol, field_9:symbol, field_8:symbol, field_7:symbol, field_6:symbol, field_5:symbol, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_list_5
+.output flat_list_5
+.decl flat_fixedparam (id:number, field_2:symbol, field_1:symbol)
+.input flat_fixedparam
+.output flat_fixedparam
+.decl flat_list_9 (id:number, field_18:symbol, field_17:symbol, field_16:symbol, field_15:symbol, field_14:symbol, field_13:symbol, field_12:symbol, field_11:symbol, field_10:symbol, field_9:symbol, field_8:symbol, field_7:symbol, field_6:symbol, field_5:symbol, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_list_9
+.output flat_list_9
+.decl flat_symbol (id:number, field_2:symbol, field_1:symbol)
+.input flat_symbol
+.output flat_symbol
+.decl flat_list_0 (id:number)
+.input flat_list_0
+.output flat_list_0
+.decl flat_list_1 (id:number, field_2:symbol, field_1:symbol)
+.input flat_list_1
+.output flat_list_1
+.decl flat_list_2 (id:number, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_list_2
+.output flat_list_2
+.decl flat_store (id:number, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_store
+.output flat_store
+.decl flat_int (id:number, field_2:symbol, field_1:symbol)
+.input flat_int
+.output flat_int
+.decl flat_ref (id:number, field_2:symbol, field_1:symbol)
+.input flat_ref
+.output flat_ref
+.decl flat_bool (id:number, field_2:symbol, field_1:symbol)
+.input flat_bool
+.output flat_bool
+.decl flat_lambda (id:number, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_lambda
+.output flat_lambda
+.decl flat_app (id:number, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_app
+.output flat_app
+.decl flat_let (id:number, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_let
+.output flat_let
+.decl flat_f_addr (id:number, field_4:symbol, field_3:symbol, field_2:symbol, field_1:symbol)
+.input flat_f_addr
+.output flat_f_addr
+
+// Code facts
+// NUMERIC-PRIMS
+.decl numeric_prim(id:number, val:symbol)
+.output numeric_prim
+numeric_prim(autoinc(), "+").
+numeric_prim(autoinc(), "-").
+numeric_prim(autoinc(), "*").
+numeric_prim(autoinc(), "/").
+numeric_prim(autoinc(), "=").
+numeric_prim(autoinc(), "modulo").
+
+
+//BOOL-PRIMS
+.decl bool_prim(id:number, val:symbol)
+.output bool_prim
+bool_prim(autoinc(), "=").
+bool_prim(autoinc(), ">").
+bool_prim(autoinc(), "<").
+bool_prim(autoinc(), "<=").
+bool_prim(autoinc(), ">=").
+bool_prim(autoinc(), "null?").
+bool_prim(autoinc(), "equal?").
+bool_prim(autoinc(), "eq?").
+
+
+//;----------------------------------------------------------------------;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;FREE VARIABLES;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;----------------------------------------------------------------------;
+
+// NON-LIST-VALUES
+.decl non_list_val(id:number, val:symbol)
+.output non_list_val
+non_list_value(autoinc(), id) :- flat_symbol(id, _, _).
+non_list_value(autoinc(), id) :- flat_bool(id, _, _).
+non_list_value(autoinc(), id) :- flat_int(id, _, _).
+non_list_value(autoinc(), id) :- flat_string(id, _, _).
+non_list_value(autoinc(), id) :- flat_state(id, _, _).
+
+
+//REF VARIABLES
+.decl free(id:number, val:symbol, val2:symbol)
+.output free
+//(free x ?(ref x))
+free(autoinc(), x, id) :- flat_ref(id, x).
+
+
+//LAMBDAS
+//[(free x eb) (=/= y x) --> (free x ?(lambda (varparam y) eb))]
+free(autoinc(), x, eb) :- free(id, x, lam_id), flat_lambda(lam_id, varp_id, eb), flat_varparam(varp_id,y), y != x.
+
+//[(free x eb) --> (do-free-lam ?(lambda (fixedparam ys) eb) ys x)]
+//
+//[(do-free-lam lam [y ys ...] x) (=/= y x) --> (do-free-lam lam ys x)]
+//
+//[(do-free-lam lam [] x) --> (free x lam)]

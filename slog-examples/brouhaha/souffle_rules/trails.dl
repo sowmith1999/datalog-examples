@@ -1,0 +1,11 @@
+.decl dummy(id:symbol)
+.output dummy
+
+.decl boo(id:number, val:symbol)
+.output boo
+
+dummy("dude").
+dummy("ude").
+dummy("de").
+dummy("e").
+boo(autoinc(), val) :- dummy(val).

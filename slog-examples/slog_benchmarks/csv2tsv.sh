@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Directory containing the CSV files
-DIR="/home/sowmith/projects/datalog-examples/slog-examples/slog_benchmarks/lubm_125/db"
+DIR="/home/sowmith/projects/datalog-examples/slog-examples/slog_benchmarks/andersen/input/5000"
 
 # Loop through each CSV file in the directory
 for FILE in "$DIR"/*.csv; do

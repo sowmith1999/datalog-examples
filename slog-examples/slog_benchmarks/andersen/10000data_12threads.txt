@@ -1,0 +1,319 @@
+JIT Compiling .slog to .slogc
+parsing + compilation took 39 ms.
+ir-small: 
+RULES:
+------------------------------------------------------
+/slog/out/andersen.slog 1:
+[((rel-arity edb 1 db) $h) <--
+  (= $h ((rel-arity AddressOf 2 db) Y X))]
+------------------------------------------------------
+/slog/out/andersen.slog 2:
+[((rel-arity edb 1 db) $h1) <--
+  (= $h1 ((rel-arity Assign 2 db) Y Z))]
+------------------------------------------------------
+/slog/out/andersen.slog 3:
+[((rel-arity edb 1 db) $h2) <--
+  (= $h2 ((rel-arity Load 2 db) Y X))]
+------------------------------------------------------
+/slog/out/andersen.slog 4:
+[((rel-arity edg 1 db) $h3) <--
+  (= $h3 ((rel-arity Store 2 db) Y X))]
+------------------------------------------------------
+/slog/out/andersen.slog 5:
+[((rel-arity provenance 2 db) f f) <--
+  (= $_5 ((rel-arity edb 1 db) f))]
+------------------------------------------------------
+/slog/out/andersen.slog 6:
+[((rel-arity pointsTo 2 db) Y X) <--
+  (= id ((rel-arity AddressOf 2 db) Y X))]
+[((rel-arity provenance 2 db) $id id) <--
+  (= id ((rel-arity AddressOf 2 db) Y X))
+  (= $id ((rel-arity pointsTo 2 db) Y X))]
+------------------------------------------------------
+/slog/out/andersen.slog 7:
+[((rel-arity provenance 2 db) $id1 id2) <--
+  (= $_32 ((rel-arity $inter-head5 3 db) id1 id2 $id1))]
+[((rel-arity $inter-head5 3 db) id1 id2 $id1) <--
+  (= $_31 ((rel-arity $inter-head4 4 db) id1 id2 X Y))
+  (= $id1 ((rel-arity pointsTo 2 db) Y X))]
+[((rel-arity pointsTo 2 db) Y X) <--
+  (= $_31 ((rel-arity $inter-head4 4 db) id1 id2 X Y))]
+[((rel-arity $inter-head4 4 db) id1 id2 X Y) <--
+  (= id1 ((rel-arity Assign 2 db) Y Z))
+  (= id2 ((rel-arity pointsTo 2 db) Z X))]
+[((rel-arity provenance 2 db) $id1 id1) <--
+  (= $_32 ((rel-arity $inter-head5 3 db) id1 id2 $id1))]
+------------------------------------------------------
+/slog/out/andersen.slog 8:
+[((rel-arity $rule8-inter-body 4 db) id1 id2 Y Z) <--
+  (= id2 ((rel-arity pointsTo 2 db) X Z))
+  (= id1 ((rel-arity Load 2 db) Y X))]
+[((rel-arity provenance 2 db) $id3 id1) <--
+  (= $_24 ((rel-arity $inter-head3 4 db) id1 id2 id3 $id3))]
+[((rel-arity $inter-head2 5 db) id1 id2 Y id3 W) <--
+  (= $_30 ((rel-arity $rule8-inter-body 4 db) id1 id2 Y Z))
+  (= id3 ((rel-arity pointsTo 2 db) Z W))]
+[((rel-arity pointsTo 2 db) Y W) <--
+  (= $_23 ((rel-arity $inter-head2 5 db) id1 id2 Y id3 W))]
+[((rel-arity provenance 2 db) $id3 id2) <--
+  (= $_24 ((rel-arity $inter-head3 4 db) id1 id2 id3 $id3))]
+[((rel-arity provenance 2 db) $id3 id3) <--
+  (= $_24 ((rel-arity $inter-head3 4 db) id1 id2 id3 $id3))]
+[((rel-arity $inter-head3 4 db) id1 id2 id3 $id3) <--
+  (= $_23 ((rel-arity $inter-head2 5 db) id1 id2 Y id3 W))
+  (= $id3 ((rel-arity pointsTo 2 db) Y W))]
+------------------------------------------------------
+/slog/out/andersen.slog 9:
+[((rel-arity provenance 2 db) $id6 id1) <--
+  (= $_16 ((rel-arity $inter-head1 4 db) id1 id2 id3 $id6))]
+[((rel-arity $inter-head 5 db) id3 Z id1 id2 W) <--
+  (= $_22 ((rel-arity $rule9-inter-body 4 db) id1 id2 X Z))
+  (= id3 ((rel-arity pointsTo 2 db) X W))]
+[((rel-arity provenance 2 db) $id6 id3) <--
+  (= $_16 ((rel-arity $inter-head1 4 db) id1 id2 id3 $id6))]
+[((rel-arity $inter-head1 4 db) id1 id2 id3 $id6) <--
+  (= $_15 ((rel-arity $inter-head 5 db) id3 Z id1 id2 W))
+  (= $id6 ((rel-arity pointsTo 2 db) Z W))]
+[((rel-arity pointsTo 2 db) Z W) <--
+  (= $_15 ((rel-arity $inter-head 5 db) id3 Z id1 id2 W))]
+[((rel-arity $rule9-inter-body 4 db) id1 id2 X Z) <--
+  (= id1 ((rel-arity Store 2 db) Y X))
+  (= id2 ((rel-arity pointsTo 2 db) Y Z))]
+[((rel-arity provenance 2 db) $id6 id2) <--
+  (= $_16 ((rel-arity $inter-head1 4 db) id1 id2 id3 $id6))]
+
+
+All rules: 39, arules: 9, copy rules: 17, join rules: 13, facts: 0
+rels: 16, sccs: 25
+[wrote C++ driver and data to "/slog/out/andersen.cpp"]
+
+Time taken: 9.377817153930664
+Not compiling backend.
+Calling tsv->bin
+Time taken: 1.4449076652526855
+Running slog executable.
+['/usr/bin/mpirun', '-n', '12', '/slog/backend/build/slog', '/slog/out/andersen.slogc', '/slog/out/input-data', '/slog/out']
+0 >>>>>>>>>>  copy rel__edb__1__1 rel__AddressOf__2__1__2
+0 >>>>>>>>>>  copy rel__pointsTo__2__1__2 rel__AddressOf__2__1__2
+0 >>>>>>>>>>  acopy rel__Store__2__1 rel__Store__2__1__2
+0 >>>>>>>>>>  acopy rel__Assign__2__2 rel__Assign__2__1__2
+0 >>>>>>>>>>  acopy rel__Load__2__2 rel__Load__2__1__2
+0 >>>>>>>>>>  copy rel__edb__1__1 rel__Assign__2__1__2
+0 >>>>>>>>>>  join rel___dollorinter__head2__5__1__2__3__4__5 rel__pointsTo__2__1 rel___dollorrule8__inter__body__4__4
+1 >>>>>>>>>>  copy rel__pointsTo__2__1__2 rel___dollorinter__head__5__1__2__3__4__5
+2 >>>>>>>>>>  copy rel__pointsTo__2__1__2 rel___dollorinter__head2__5__1__2__3__4__5
+3 >>>>>>>>>>  join rel___dollorrule9__inter__body__4__1__2__3__4 rel__pointsTo__2__1 rel__Store__2__1
+4 >>>>>>>>>>  join rel___dollorinter__head4__4__1__2__3__4 rel__pointsTo__2__1 rel__Assign__2__2
+5 >>>>>>>>>>  acopy rel___dollorrule8__inter__body__4__4 rel___dollorrule8__inter__body__4__1__2__3__4
+6 >>>>>>>>>>  join rel___dollorinter__head__5__1__2__3__4__5 rel__pointsTo__2__1 rel___dollorrule9__inter__body__4__3
+7 >>>>>>>>>>  copy rel__pointsTo__2__1__2 rel___dollorinter__head4__4__1__2__3__4
+8 >>>>>>>>>>  join rel___dollorinter__head__5__1__2__3__4__5 rel__pointsTo__2__1 rel___dollorrule9__inter__body__4__3
+9 >>>>>>>>>>  join rel___dollorinter__head2__5__1__2__3__4__5 rel__pointsTo__2__1 rel___dollorrule8__inter__body__4__4
+10 >>>>>>>>>>  join rel___dollorrule8__inter__body__4__1__2__3__4 rel__Load__2__2 rel__pointsTo__2__1
+11 >>>>>>>>>>  join rel___dollorinter__head__5__1__2__3__4__5 rel__pointsTo__2__1 rel___dollorrule9__inter__body__4__3
+12 >>>>>>>>>>  acopy rel___dollorrule9__inter__body__4__3 rel___dollorrule9__inter__body__4__1__2__3__4
+13 >>>>>>>>>>  acopy rel__pointsTo__2__1 rel__pointsTo__2__1__2
+14 >>>>>>>>>>  join rel___dollorinter__head2__5__1__2__3__4__5 rel__pointsTo__2__1 rel___dollorrule8__inter__body__4__4
+0 >>>>>>>>>>  acopy rel___dollorinter__head__5__2__5 rel___dollorinter__head__5__1__2__3__4__5
+0 >>>>>>>>>>  acopy rel___dollorinter__head4__4__4__3 rel___dollorinter__head4__4__1__2__3__4
+0 >>>>>>>>>>  acopy rel___dollorinter__head2__5__3__5 rel___dollorinter__head2__5__1__2__3__4__5
+0 >>>>>>>>>>  join rel___dollorinter__head5__3__1__2__3 rel__pointsTo__2__1__2 rel___dollorinter__head4__4__4__3
+0 >>>>>>>>>>  copy rel__provenance__2__1__2 rel___dollorinter__head5__3__1__2__3
+0 >>>>>>>>>>  copy rel__provenance__2__1__2 rel___dollorinter__head5__3__1__2__3
+0 >>>>>>>>>>  join rel___dollorinter__head3__4__1__2__3__4 rel__pointsTo__2__1__2 rel___dollorinter__head2__5__3__5
+0 >>>>>>>>>>  copy rel__provenance__2__1__2 rel___dollorinter__head3__4__1__2__3__4
+0 >>>>>>>>>>  copy rel__provenance__2__1__2 rel___dollorinter__head3__4__1__2__3__4
+0 >>>>>>>>>>  join rel___dollorinter__head1__4__1__2__3__4 rel__pointsTo__2__1__2 rel___dollorinter__head__5__2__5
+0 >>>>>>>>>>  copy rel__provenance__2__1__2 rel___dollorinter__head1__4__1__2__3__4
+0 >>>>>>>>>>  copy rel__provenance__2__1__2 rel___dollorinter__head1__4__1__2__3__4
+0 >>>>>>>>>>  copy rel__provenance__2__1__2 rel___dollorinter__head1__4__1__2__3__4
+0 >>>>>>>>>>  join rel__provenance__2__1__2 rel__pointsTo__2__1__2 rel__AddressOf__2__1__2
+0 >>>>>>>>>>  copy rel__edg__1__1 rel__Store__2__1__2
+0 >>>>>>>>>>  copy rel__provenance__2__1__2 rel___dollorinter__head3__4__1__2__3__4
+0 >>>>>>>>>>  copy rel__edb__1__1 rel__Load__2__1__2
+0 >>>>>>>>>>  copy rel__provenance__2__1__2 rel__edb__1__1
+Input file 272.$rule9-inter-body.4.table not exists
+Input file 273.pointsTo.2.table not exists
+Input file 274.Assign.2.table not exists
+Input file 275.$inter-head4.4.table not exists
+Input file 276.Load.2.table not exists
+Input file 277.$rule8-inter-body.4.table not exists
+Input file 278.$inter-head2.5.table not exists
+Input file 279.Store.2.table not exists
+Input file 280.$inter-head.5.table not exists
+262.$rule9-inter-body.4.table: {4}. (0 total facts)
+263.$inter-head3.4.table: {4}. (0 total facts)
+266.edg.1.table: {1}. (0 total facts)
+: {4}. (0 total facts)
+256.AddressOf.2.table: {2}. (40000 total facts)
+265.provenance.2.table: {2}. (0 total facts)
+270.$inter-head2.5.table: {5}. (0 total facts)
+258.$inter-head1.4.table: {4}. (0 total facts)
+: {2}. (0 total facts)
+: {2}. (0 total facts)
+: {4}. (0 total facts)
+: {2}. (0 total facts)
+257.$rule8-inter-body.4.table: {4}. (0 total facts)
+: {4}. (0 total facts)
+: {5}. (0 total facts)
+: {2}. (0 total facts)
+269.edb.1.table: {1}. (0 total facts)
+267.pointsTo.2.table: {2}. (0 total facts)
+259.$inter-head4.4.table: {4}. (0 total facts)
+271.$inter-head5.3.table: {3}. (0 total facts)
+: {5}. (0 total facts)
+268.Load.2.table: {2}. (329999 total facts)
+260.Assign.2.table: {2}. (99998 total facts)
+261.Store.2.table: {2}. (209998 total facts)
+264.$inter-head.5.table: {5}. (0 total facts)
+Iteration 0 (sync 1.0171e-05) >> Join: 0.000555349 , Comm: 0.000170499 , Newt: 0.00386313 , Full: 1.488e-06 , Intra: 3.24e-07 (0,0,0) total: 0.00487323
+<<<<<<<<<<< SCC 0 finish, 1 iteration in total.
+RA OP 0 >>>> 0.000523795
+TOTAL STAT >>>>>>>> Join: 0.000555349 (Sync: 1.0171e-05)   , Comm: 0.000170499 , Newt: -nan , Full: 1.488e-06 , Intra: 3.24e-07
+Iteration 0 (sync 1.351e-05) >> Join: 0.000507712 , Comm: 0.000300768 , Newt: 0.0023972 , Full: 8.07e-07 , Intra: 2.11e-07 (0,0,0) total: 0.00335787
+<<<<<<<<<<< SCC 1 finish, 1 iteration in total.
+RA OP 0 >>>> 0.000490383
+TOTAL STAT >>>>>>>> Join: 0.000507712 (Sync: 1.351e-05)   , Comm: 0.000300768 , Newt: 0.0023972 , Full: 8.07e-07 , Intra: -nan
+Iteration 0 (sync 5.352e-06) >> Join: 0.00191739 , Comm: 0.000732806 , Newt: 0.00719897 , Full: 0.00509734 , Intra: 2.76e-07 (0,0,0) total: 0.0149856
+<<<<<<<<<<< SCC 2 finish, 1 iteration in total.
+RA OP 0 >>>> 0.00190329
+TOTAL STAT >>>>>>>> Join: 0.00191739 (Sync: 5.352e-06)   , Comm: 0.000732806 , Newt: -nan , Full: 0.00509734 , Intra: 2.76e-07
+Iteration 0 (sync 0.000188801) >> Join: 0.00110032 , Comm: 0.000364776 , Newt: 0.00415919 , Full: 0.00230503 , Intra: 3.54e-07 (0,0,0) total: 0.00796874
+<<<<<<<<<<< SCC 3 finish, 1 iteration in total.
+RA OP 0 >>>> 0.000903992
+TOTAL STAT >>>>>>>> Join: 0.00110032 (Sync: 0.000188801)   , Comm: 0.000364776 , Newt: 0.00415919 , Full: 0.00230503 , Intra: -nan
+Iteration 0 (sync 0.000233141) >> Join: 0.00425846 , Comm: 0.00256842 , Newt: 0.0158618 , Full: 0.00795249 , Intra: 7.91e-07 (0,0,0) total: 0.0306874
+<<<<<<<<<<< SCC 4 finish, 1 iteration in total.
+RA OP 0 >>>> 0.00401352
+TOTAL STAT >>>>>>>> Join: 0.00425846 (Sync: 0.000233141)   , Comm: 0.00256842 , Newt: 0.0158618 , Full: 0.00795249 , Intra: 7.91e-07
+Iteration 0 (sync 5.664e-06) >> Join: 0.000813314 , Comm: 0.000308847 , Newt: 0.0110473 , Full: 0.000890637 , Intra: 3.04e-07 (0,0,0) total: 0.0132641
+<<<<<<<<<<< SCC 5 finish, 1 iteration in total.
+RA OP 0 >>>> 0.000798888
+TOTAL STAT >>>>>>>> Join: -nan (Sync: -nan)   , Comm: 0.000308847 , Newt: 0.0110473 , Full: 0.000890637 , Intra: 3.04e-07
+Iteration 0 (sync 2.0853e-05) (sync 9.8403e-05) (sync 3.214e-06) (sync 0.000191884) (sync 8.3968e-05) (sync 9.0526e-05) (sync 3.47e-06) (sync 3.374e-06) (sync 6.4867e-05) (sync 7.7477e-05) >> Join: 0.018816 , Comm: 0.00108781 , Newt: 0.0123867 , Full: 0.00556405 , Intra: 0.00138225 (0.00122852,0.000136143,0) total: 0.0393375
+Iteration 1 (sync 7.5685e-05) (sync 5.3926e-05) (sync 9.4858e-05) (sync 7.251e-05) (sync 4.3969e-05) (sync 4.0622e-05) (sync 1.2016e-05) (sync 4.1818e-05) (sync 2.127e-06) (sync 5.7152e-05) >> Join: 0.00196208 , Comm: 0.000587839 , Newt: 0.000908076 , Full: 0.000515438 , Intra: 0.000229514 (0.000150201,6.6259e-05,0) total: 0.00427479
+Iteration 2 (sync 6.6903e-05) (sync 1.2879e-05) (sync 7.6007e-05) (sync 2.8621e-05) (sync 2.147e-06) (sync 2.6673e-05) (sync 3.6512e-05) (sync 2.3597e-05) (sync 4.9316e-05) (sync 3.935e-05) >> Join: 0.000648156 , Comm: 0.000453862 , Newt: 0.000200033 , Full: 9.679e-05 , Intra: 0.000129241 (7.0496e-05,4.6683e-05,0) total: 0.0016102
+Iteration 3 (sync 3.466e-05) (sync 3.7431e-05) (sync 2.151e-06) (sync 5.683e-06) (sync 1.9134e-05) (sync 1.5472e-05) (sync 1.4929e-05) (sync 5.915e-06) (sync 1.9665e-05) (sync 9.385e-06) >> Join: 0.000302956 , Comm: 0.000317699 , Newt: 9.0157e-05 , Full: 3.474e-05 , Intra: 0.000110559 (5.6253e-05,4.263e-05,0) total: 0.000925251
+Iteration 4 (sync 2.241e-06) (sync 1.2096e-05) (sync 2.1096e-05) (sync 3.7877e-05) (sync 1.5654e-05) (sync 2.4633e-05) (sync 2.184e-05) (sync 2.3531e-05) (sync 1.3048e-05) (sync 9.151e-06) >> Join: 0.000294621 , Comm: 0.000270417 , Newt: 7.1923e-05 , Full: 2.4875e-05 , Intra: 0.000105164 (5.1717e-05,4.1992e-05,0) total: 0.000833372
+Iteration 5 (sync 2.349e-06) (sync 7.137e-06) (sync 4.387e-06) (sync 4.219e-06) (sync 4.064e-06) (sync 4.056e-06) (sync 3.949e-06) (sync 4.17e-06) (sync 4.144e-06) (sync 4.396e-06) >> Join: 0.000118203 , Comm: 0.000220142 , Newt: 5.3153e-05 , Full: 1.3009e-05 , Intra: 9.9868e-05 (4.8412e-05,4.0054e-05,0) total: 0.000564872
+<<<<<<<<<<< SCC 6 finish, 6 iteration in total.
+RA OP 0 >>>> 0.00152343
+RA OP 1 >>>> 4.1941e-05
+RA OP 2 >>>> 7.3628e-05
+RA OP 3 >>>> 0.0046822
+RA OP 4 >>>> 0.00364715
+RA OP 5 >>>> 0.000475497
+RA OP 6 >>>> 0.000992858
+RA OP 7 >>>> 0.000118868
+RA OP 8 >>>> 0.000196617
+RA OP 9 >>>> 0.000226932
+RA OP 10 >>>> 0.00548216
+RA OP 11 >>>> 0.000742939
+RA OP 12 >>>> 0.000264739
+RA OP 13 >>>> 0.0005712
+RA OP 14 >>>> 0.00085701
+TOTAL STAT >>>>>>>> Join: 0.022142 (Sync: 0.00188319)   , Comm: 0.00293777 , Newt: -nan , Full: 0.0062489 , Intra: 0.00205659
+relation : 262 GCed
+relation : 272 GCed
+relation : 257 GCed
+relation : 277 GCed
+Iteration 0 (sync 4.042e-06) >> Join: 4.4399e-05 , Comm: 5.6786e-05 , Newt: 4.3072e-05 , Full: 4.3246e-05 , Intra: 2.88e-07 (0,0,0) total: 0.000216672
+<<<<<<<<<<< SCC 7 finish, 1 iteration in total.
+RA OP 0 >>>> 3.3219e-05
+TOTAL STAT >>>>>>>> Join: 4.4399e-05 (Sync: 4.042e-06)   , Comm: 5.6786e-05 , Newt: 4.3072e-05 , Full: 4.3246e-05 , Intra: 2.88e-07
+Iteration 0 (sync 1.1933e-05) >> Join: 0.000149569 , Comm: 6.3758e-05 , Newt: 0.000340952 , Full: 0.00021996 , Intra: 1.62e-07 (0,0,0) total: 0.000802667
+<<<<<<<<<<< SCC 8 finish, 1 iteration in total.
+RA OP 0 >>>> 0.000133017
+TOTAL STAT >>>>>>>> Join: 0.000149569 (Sync: 1.1933e-05)   , Comm: 6.3758e-05 , Newt: -nan , Full: 0.00021996 , Intra: 1.62e-07
+Iteration 0 (sync 2.14e-06) >> Join: 7.1477e-05 , Comm: 5.1897e-05 , Newt: 0.000134968 , Full: 0.000106091 , Intra: 1.19e-07 (0,0,0) total: 0.000387601
+<<<<<<<<<<< SCC 9 finish, 1 iteration in total.
+RA OP 0 >>>> 6.6242e-05
+TOTAL STAT >>>>>>>> Join: 7.1477e-05 (Sync: 2.14e-06)   , Comm: 5.1897e-05 , Newt: 0.000134968 , Full: 0.000106091 , Intra: -nan
+Iteration 0 (sync 2.0469e-05) >> Join: 0.000903404 , Comm: 9.5322e-05 , Newt: 0.000915617 , Full: 7.02e-07 , Intra: 3.7911e-05 (3.557e-05,1.908e-06,0) total: 0.0020592
+<<<<<<<<<<< SCC 10 finish, 1 iteration in total.
+RA OP 0 >>>> 0.00087928
+TOTAL STAT >>>>>>>> Join: -nan (Sync: -nan)   , Comm: 9.5322e-05 , Newt: 4.03329e+07 , Full: 4.92021e+92 , Intra: 4.3239e+251
+relation : 275 GCed
+Iteration 0 (sync 2.333e-06) >> Join: 0.000155569 , Comm: 5.8488e-05 , Newt: 0.000879542 , Full: 5.82e-07 , Intra: 1.02e-07 (0,0,0) total: 0.00124088
+<<<<<<<<<<< SCC 11 finish, 1 iteration in total.
+RA OP 0 >>>> 0.000148629
+TOTAL STAT >>>>>>>> Join: 0.000155569 (Sync: 2.333e-06)   , Comm: 5.8488e-05 , Newt: -nan , Full: 5.82e-07 , Intra: 1.02e-07
+Iteration 0 (sync 2.5241e-05) >> Join: 0.000136909 , Comm: 4.5362e-05 , Newt: 0.0012051 , Full: 0.000191402 , Intra: 1.02e-07 (0,0,0) total: 0.00164483
+<<<<<<<<<<< SCC 12 finish, 1 iteration in total.
+RA OP 0 >>>> 0.000108637
+TOTAL STAT >>>>>>>> Join: 0.000136909 (Sync: 2.5241e-05)   , Comm: 4.5362e-05 , Newt: -nan , Full: 0.000191402 , Intra: 1.02e-07
+Iteration 0 (sync 2.7352e-05) >> Join: 0.000407556 , Comm: 5.193e-05 , Newt: 0.000402205 , Full: 6.47e-07 , Intra: 4.4292e-05 (4.2543e-05,1.331e-06,0) total: 0.000971016
+<<<<<<<<<<< SCC 13 finish, 1 iteration in total.
+RA OP 0 >>>> 0.000376417
+TOTAL STAT >>>>>>>> Join: 0.000407556 (Sync: 2.7352e-05)   , Comm: 5.193e-05 , Newt: -nan , Full: 6.47e-07 , Intra: 4.4292e-05
+relation : 278 GCed
+Iteration 0 (sync 6.6051e-05) >> Join: 0.000116778 , Comm: 7.4702e-05 , Newt: 0.000475836 , Full: 0.000385303 , Intra: 1.43e-07 (0,0,0) total: 0.00109156
+<<<<<<<<<<< SCC 14 finish, 1 iteration in total.
+RA OP 0 >>>> 4.7601e-05
+TOTAL STAT >>>>>>>> Join: 0.000116778 (Sync: 6.6051e-05)   , Comm: 7.4702e-05 , Newt: 0.000475836 , Full: 0.000385303 , Intra: 1.43e-07
+Iteration 0 (sync 1.1047e-05) >> Join: 6.1917e-05 , Comm: 7.7258e-05 , Newt: 0.000542315 , Full: 0.000460422 , Intra: 9.3e-08 (0,0,0) total: 0.00116425
+<<<<<<<<<<< SCC 15 finish, 1 iteration in total.
+RA OP 0 >>>> 4.7829e-05
+TOTAL STAT >>>>>>>> Join: 6.1917e-05 (Sync: 1.1047e-05)   , Comm: 7.7258e-05 , Newt: 0.000542315 , Full: 0.000460422 , Intra: -nan
+Iteration 0 (sync 3.2e-05) >> Join: 0.000161284 , Comm: 4.3935e-05 , Newt: 0.000144228 , Full: 6.7e-07 , Intra: 4.8791e-05 (4.7254e-05,1.152e-06,0) total: 0.000438412
+<<<<<<<<<<< SCC 16 finish, 1 iteration in total.
+RA OP 0 >>>> 0.000125596
+TOTAL STAT >>>>>>>> Join: 0.000161284 (Sync: 3.2e-05)   , Comm: 4.3935e-05 , Newt: 0.000144228 , Full: 6.7e-07 , Intra: 4.8791e-05
+relation : 280 GCed
+Iteration 0 (sync 1.3673e-05) >> Join: 4.1879e-05 , Comm: 7.2775e-05 , Newt: 0.000176035 , Full: 0.000549461 , Intra: 1.06e-07 (0,0,0) total: 0.000888849
+<<<<<<<<<<< SCC 17 finish, 1 iteration in total.
+RA OP 0 >>>> 2.5023e-05
+TOTAL STAT >>>>>>>> Join: 4.1879e-05 (Sync: 1.3673e-05)   , Comm: 7.2775e-05 , Newt: -nan , Full: 0.000549461 , Intra: 1.06e-07
+Iteration 0 (sync 1.0206e-05) >> Join: 3.8235e-05 , Comm: 3.9305e-05 , Newt: 0.000175148 , Full: 0.00059407 , Intra: 9.7e-08 (0,0,0) total: 0.000869087
+<<<<<<<<<<< SCC 18 finish, 1 iteration in total.
+RA OP 0 >>>> 2.514e-05
+TOTAL STAT >>>>>>>> Join: 3.8235e-05 (Sync: 1.0206e-05)   , Comm: 3.9305e-05 , Newt: -nan , Full: 0.00059407 , Intra: 9.7e-08
+Iteration 0 (sync 2.9141e-05) >> Join: 5.8376e-05 , Comm: 4.0097e-05 , Newt: 0.000172315 , Full: 0.000609519 , Intra: 9.4e-08 (0,0,0) total: 0.000917862
+<<<<<<<<<<< SCC 19 finish, 1 iteration in total.
+RA OP 0 >>>> 2.6161e-05
+TOTAL STAT >>>>>>>> Join: 5.8376e-05 (Sync: 2.9141e-05)   , Comm: 4.0097e-05 , Newt: -nan , Full: 0.000609519 , Intra: 9.4e-08
+Iteration 0 (sync 0.000188977) >> Join: 0.00337808 , Comm: 0.000107498 , Newt: 0.00333799 , Full: 0.000620134 , Intra: 0.000155203 (0.000146289,8.456e-06,0) total: 0.0076751
+<<<<<<<<<<< SCC 20 finish, 1 iteration in total.
+RA OP 0 >>>> 0.00312808
+TOTAL STAT >>>>>>>> Join: 0.00337808 (Sync: 0.000188977)   , Comm: 0.000107498 , Newt: -nan , Full: 0.000620134 , Intra: 0.000155203
+Iteration 0 (sync 1.6095e-05) >> Join: 0.00173648 , Comm: 0.00026727 , Newt: 0.0231925 , Full: 1.394e-06 , Intra: 1.06e-07 (0,0,0) total: 0.0258947
+<<<<<<<<<<< SCC 21 finish, 1 iteration in total.
+RA OP 0 >>>> 0.00171524
+TOTAL STAT >>>>>>>> Join: 0.00173648 (Sync: 1.6095e-05)   , Comm: 0.00026727 , Newt: -nan , Full: 1.394e-06 , Intra: 1.06e-07
+Iteration 0 (sync 7.0555e-05) >> Join: 0.00013159 , Comm: 4.941e-05 , Newt: 0.000566954 , Full: 0.00166767 , Intra: 2.03e-07 (0,0,0) total: 0.00244156
+<<<<<<<<<<< SCC 22 finish, 1 iteration in total.
+RA OP 0 >>>> 5.6112e-05
+TOTAL STAT >>>>>>>> Join: 0.00013159 (Sync: 7.0555e-05)   , Comm: 4.941e-05 , Newt: -nan , Full: 0.00166767 , Intra: 2.03e-07
+Iteration 0 (sync 0.000291038) >> Join: 0.00277681 , Comm: 0.000449108 , Newt: 0.0410153 , Full: 0.00343897 , Intra: 1.74e-07 (0,0,0) total: 0.0483865
+<<<<<<<<<<< SCC 23 finish, 1 iteration in total.
+RA OP 0 >>>> 0.00247976
+TOTAL STAT >>>>>>>> Join: 0.00277681 (Sync: 0.000291038)   , Comm: 0.000449108 , Newt: -nan , Full: 0.00343897 , Intra: 1.74e-07
+Iteration 0 (sync 6.7695e-05) >> Join: 0.00460317 , Comm: 0.00249965 , Newt: 8.36e-07 , Full: 0.00179667 , Intra: 1.54e-07 (0,0,0) total: 0.235516
+<<<<<<<<<<< SCC 24 finish, 1 iteration in total.
+RA OP 0 >>>> 0.00452559
+TOTAL STAT >>>>>>>> Join: 0.00460317 (Sync: 6.7695e-05)   , Comm: 0.00249965 , Newt: -nan , Full: 0.00179667 , Intra: 1.54e-07
+263.$inter-head3.4.table: {4}. (3526 total facts)
+266.edg.1.table: {1}. (209998 total facts)
+256.AddressOf.2.table: {2}. (40000 total facts)
+265.provenance.2.table: {2}. (540597 total facts)
+270.$inter-head2.5.table: {5}. (3526 total facts)
+258.$inter-head1.4.table: {4}. (1347 total facts)
+: {2}. (52805 total facts)
+: {2}. (99998 total facts)
+: {2}. (329999 total facts)
+: {2}. (209998 total facts)
+269.edb.1.table: {1}. (469997 total facts)
+267.pointsTo.2.table: {2}. (52805 total facts)
+259.$inter-head4.4.table: {4}. (8049 total facts)
+271.$inter-head5.3.table: {3}. (8049 total facts)
+268.Load.2.table: {2}. (329999 total facts)
+260.Assign.2.table: {2}. (99998 total facts)
+261.Store.2.table: {2}. (209998 total facts)
+264.$inter-head.5.table: {5}. (1347 total facts)
+Total actual facts: 24 MB.
+Total intermediate facts: 11 MB.
+Intermediate overhead ratio: 0.315283
+Running time : 0.67777
+
+Time taken: 1.219719648361206
+Build success!
