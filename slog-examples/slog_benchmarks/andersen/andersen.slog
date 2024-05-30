@@ -1,10 +1,3 @@
-(edb ?(AddressOf Y X))
-(edb ?(Assign Y Z))
-(edb ?(Load Y X))
-(edg ?(Store Y X))
-
-[(provenance f f) <-- (edb f)]
-
 ;pointsTo(Y,X):-AddressOf(Y,X).
 [(provenance (pointsTo Y X) id) <-- (= id (AddressOf Y X))]
 
@@ -18,8 +11,8 @@
 [ (provenance (pointsTo Y W) id1)
  (provenance (pointsTo Y W) id2)
  (provenance (pointsTo Y W) id3)
- <-- (= id1 (Load Y X))  
-     (= id2 (pointsTo X Z))  
+ <-- (= id1 (Load Y X)) 
+     (= id2 (pointsTo X Z)) 
      (= id3 (pointsTo Z W))]
 
 ; pointsTo(Z,W):-Store(Y,X),pointsTo(Y,Z),pointsTo(X,W).
@@ -27,7 +20,7 @@
  (provenance (pointsTo Z W) id2)
  (provenance (pointsTo Z W) id3)
  <-- (= id1 (Store Y X))  
-     (= id2 (pointsTo Y Z))  
+     (= id2 (pointsTo Y Z)) 
      (= id3 (pointsTo X W))]
 
 ; pointsTo(X,Y)?
