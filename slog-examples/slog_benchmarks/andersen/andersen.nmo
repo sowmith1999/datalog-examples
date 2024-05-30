@@ -1,0 +1,28 @@
+@import AddressOf :- csv{resource = "./input/100000/AddressOf.csv"}.
+@import Assign :- csv{resource = "./input/100000/Assign.csv"}.
+@import Load :- csv{resource = "./input/100000/Load.csv"}.
+@import Store :- csv{resource = "./input/100000/Store.csv"}.
+
+AddressOf_p(?Y,?X, !id) :- AddressOf(?Y, ?X).
+Assign_p(?Y, ?Z, !id) :- Assign(?Y, ?Z).
+Load_p(?Y,?X, !id) :- Load(?Y, ?X).
+Store_p(?Y,?X, !id) :- Store(?Y, ?X).
+
+pointsTo(?Y, ?X, !idnew) :- AddressOf_p(?Y, ?X, ?id1).
+prov(?idnew, ?id1) :- pointsTo(?Y, ?X, ?idnew), AddressOf_p(?Y, ?X, ?id1).
+
+pointsTo(?Y, ?X, !idnew) :- Assign_p(?Y, ?Z, ?id1), pointsTo(?Z, ?X, ?id2).
+prov(?idnew, ?id1) :- pointsTo(?Y, ?X, ?idnew), Assign_p(?Y, ?Z, ?id1), pointsTo(?Z, ?X, ?id2).
+prov(?idnew, ?id2) :- pointsTo(?Y, ?X, ?idnew), Assign_p(?Y, ?Z, ?id1), pointsTo(?Z, ?X, ?id2).
+
+pointsTo(?Y, ?W, !idnew) :- Load_p(?Y, ?X, ?id1), pointsTo(?X, ?Z, ?id2), pointsTo(?Z, ?W, ?id3).
+prov(?idnew, ?id1) :- pointsTo(?Y, ?W, ?idnew), Load_p(?Y, ?X, ?id1), pointsTo(?X, ?Z, ?id2), pointsTo(?Z, ?W, ?id3).
+prov(?idnew, ?id2) :- pointsTo(?Y, ?W, ?idnew), Load_p(?Y, ?X, ?id1), pointsTo(?X, ?Z, ?id2), pointsTo(?Z, ?W, ?id3).
+prov(?idnew, ?id3) :- pointsTo(?Y, ?W, ?idnew), Load_p(?Y, ?X, ?id1), pointsTo(?X, ?Z, ?id2), pointsTo(?Z, ?W, ?id3).
+
+pointsTo(?Z, ?W, !idnew) :- Store_p(?Y, ?X, ?id1), pointsTo(?Y, ?Z, ?id2), pointsTo(?X, ?W, ?id3).
+prov(?idnew, ?id1) :- pointsTo(?Z, ?W, ?idnew), Store_p(?Y, ?X, ?id1), pointsTo(?Y, ?Z, ?id2), pointsTo(?X, ?W, ?id3).
+prov(?idnew, ?id2) :- pointsTo(?Z, ?W, ?idnew), Store_p(?Y, ?X, ?id1), pointsTo(?Y, ?Z, ?id2), pointsTo(?X, ?W, ?id3).
+prov(?idnew, ?id3) :- pointsTo(?Z, ?W, ?idnew), Store_p(?Y, ?X, ?id1), pointsTo(?Y, ?Z, ?id2), pointsTo(?X, ?W, ?id3).
+
+@export null :- csv{resource="null.csv"}.
